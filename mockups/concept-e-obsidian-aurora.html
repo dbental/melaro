@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Melaro - Concept E: Obsidian Aurora</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #A78BFA;
+    --primary-bright: #C4B5FD;
+    --primary-deep: #7C3AED;
+    --secondary: #818CF8;
+    --accent: #F0ABFC;
+    --accent-deep: #D946EF;
+    --warm: #FCA5A5;
+    --warm-deep: #EF4444;
+    --amber: #FCD34D;
+    --bg: #09090B;
+    --bg-elevated: #111114;
+    --bg-surface: #18181B;
+    --fg: #FAFAFA;
+    --fg-muted: #A1A1AA;
+    --fg-dim: #71717A;
+    --card: rgba(255,255,255,0.03);
+    --card-border: rgba(255,255,255,0.07);
+    --card-border-hover: rgba(167,139,250,0.25);
+    --glow-primary: rgba(124,58,237,0.15);
+    --glow-accent: rgba(217,70,239,0.1);
+    --radius: 16px;
+    --radius-sm: 12px;
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--fg);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(9,9,11,0.82);
+    backdrop-filter: blur(20px) saturate(1.4);
+    border-bottom: 1px solid var(--card-border);
+    padding: 0 2rem;
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .logo {
+    font-family: var(--font-display);
+    font-size: 1.55rem; color: var(--fg);
+    letter-spacing: -0.01em;
+  }
+  .logo em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .nav-links { display: flex; gap: 1.75rem; align-items: center; }
+  .nav-links a {
+    text-decoration: none; color: var(--fg-dim); font-weight: 500;
+    font-size: 0.88rem; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--fg); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.6rem 1.4rem; border-radius: 10px;
+    font-weight: 600; font-size: 0.88rem; text-decoration: none;
+    transition: all 0.22s ease-out; cursor: pointer; border: none;
+    font-family: var(--font-body);
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary-deep) 0%, var(--accent-deep) 100%);
+    color: #fff;
+    box-shadow: 0 0 20px var(--glow-primary), 0 0 40px var(--glow-accent), 0 4px 12px rgba(0,0,0,0.5);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 0 30px var(--glow-primary), 0 0 60px var(--glow-accent), 0 6px 20px rgba(0,0,0,0.6);
+    transform: translateY(-1px);
+  }
+  .btn-ghost {
+    background: transparent; color: var(--fg-muted);
+    border: 1px solid var(--card-border);
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.15); color: var(--fg); }
+
+  /* HERO */
+  .hero {
+    padding: 11rem 2rem 5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Aurora gradient background */
+  .aurora {
+    position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+    width: 1200px; height: 600px;
+    background:
+      radial-gradient(ellipse at 30% 50%, rgba(124,58,237,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 40%, rgba(217,70,239,0.1) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 60%, rgba(129,140,248,0.08) 0%, transparent 50%);
+    filter: blur(60px);
+    animation: aurora-shift 20s ease-in-out infinite;
+  }
+  @keyframes aurora-shift {
+    0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; }
+    50% { transform: translateX(-48%) scale(1.05); opacity: 0.8; }
+  }
+  /* Grid lines */
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  }
+
+  .hero-content { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.3rem 0.4rem 0.3rem 0.4rem; border-radius: 999px;
+    background: rgba(124,58,237,0.08);
+    border: 1px solid rgba(124,58,237,0.15);
+    margin-bottom: 2rem;
+  }
+  .eyebrow-dot {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-deep), var(--accent-deep));
+    display: flex; align-items: center; justify-content: center;
+  }
+  .eyebrow-dot-inner {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #fff; animation: blink 2s infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .eyebrow-text {
+    font-size: 0.8rem; font-weight: 600; color: var(--primary-bright);
+    padding-right: 0.6rem;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 4.8rem);
+    font-weight: 400; line-height: 1.08;
+    letter-spacing: -0.02em; margin-bottom: 1.5rem;
+  }
+  .hero h1 .shimmer {
+    background: linear-gradient(
+      135deg,
+      var(--primary-bright) 0%,
+      var(--accent) 25%,
+      var(--primary) 50%,
+      var(--accent) 75%,
+      var(--primary-bright) 100%
+    );
+    background-size: 300% auto;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    animation: shimmer 6s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0%, 100% { background-position: 0% center; }
+    50% { background-position: 100% center; }
+  }
+  .hero p {
+    font-size: 1.15rem; color: var(--fg-muted);
+    max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.7;
+  }
+  .hero-actions {
+    display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;
+  }
+
+  /* PRODUCT VISUAL */
+  .hero-visual {
+    max-width: 1000px; margin: 5rem auto 0;
+    position: relative; z-index: 1;
+  }
+  .dashboard-frame {
+    background: var(--bg-elevated);
+    border-radius: var(--radius);
+    border: 1px solid var(--card-border);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.03),
+      0 24px 80px rgba(0,0,0,0.6),
+      0 0 80px var(--glow-primary);
+    overflow: hidden;
+  }
+  .frame-bar {
+    display: flex; align-items: center;
+    padding: 0.75rem 1.25rem;
+    background: rgba(255,255,255,0.02);
+    border-bottom: 1px solid var(--card-border);
+    gap: 0.4rem;
+  }
+  .frame-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .frame-tabs {
+    display: flex; gap: 0; margin-left: 1.5rem;
+  }
+  .frame-tab {
+    padding: 0.35rem 1rem;
+    font-size: 0.72rem; color: var(--fg-dim); font-weight: 500;
+    border: 1px solid transparent;
+    border-radius: 6px 6px 0 0;
+  }
+  .frame-tab.active {
+    color: var(--fg-muted);
+    background: var(--bg-elevated);
+    border-color: var(--card-border);
+    border-bottom-color: var(--bg-elevated);
+  }
+  .frame-body {
+    display: grid; grid-template-columns: 200px 1fr; min-height: 360px;
+  }
+  .frame-sidebar {
+    border-right: 1px solid var(--card-border);
+    padding: 1.25rem;
+  }
+  .sidebar-section {
+    font-size: 0.68rem; font-weight: 700; color: var(--fg-dim);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 0.6rem;
+  }
+  .sidebar-section:not(:first-child) { margin-top: 1.5rem; }
+  .sidebar-item {
+    padding: 0.45rem 0.6rem;
+    font-size: 0.78rem; color: var(--fg-dim);
+    border-radius: 6px; margin-bottom: 0.15rem;
+    display: flex; align-items: center; gap: 0.5rem;
+    cursor: default;
+  }
+  .sidebar-item.active {
+    background: rgba(124,58,237,0.12);
+    color: var(--primary-bright);
+  }
+  .sidebar-icon {
+    width: 14px; height: 14px; border-radius: 3px;
+    background: currentColor; opacity: 0.3;
+  }
+  .sidebar-item.active .sidebar-icon { opacity: 0.6; }
+  .frame-main { padding: 1.5rem; }
+  .main-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 1.25rem;
+  }
+  .main-header h3 { font-size: 0.95rem; font-weight: 700; }
+  .main-header .badge {
+    font-size: 0.7rem; font-weight: 600;
+    padding: 0.2rem 0.6rem; border-radius: 999px;
+    background: rgba(124,58,237,0.1); color: var(--primary-bright);
+    border: 1px solid rgba(124,58,237,0.2);
+  }
+  .agents-list { display: flex; flex-direction: column; gap: 0.6rem; }
+  .agent-row {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    transition: all 0.2s;
+  }
+  .agent-row:hover {
+    background: rgba(255,255,255,0.04);
+    border-color: var(--card-border-hover);
+  }
+  .agent-av {
+    width: 34px; height: 34px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.6rem; font-weight: 700; color: #fff; flex-shrink: 0;
+  }
+  .agent-info { flex: 1; }
+  .agent-info-name { font-size: 0.82rem; font-weight: 600; }
+  .agent-info-role { font-size: 0.7rem; color: var(--fg-dim); }
+  .agent-tasks {
+    font-size: 0.72rem; color: var(--fg-dim);
+    font-variant-numeric: tabular-nums;
+    min-width: 60px; text-align: right;
+  }
+  .agent-cost {
+    font-size: 0.72rem; font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    min-width: 50px; text-align: right;
+  }
+  .agent-status-pill {
+    font-size: 0.62rem; font-weight: 600;
+    padding: 0.15rem 0.5rem; border-radius: 999px;
+    min-width: 56px; text-align: center;
+  }
+  .status-active {
+    background: rgba(167,139,250,0.12); color: var(--primary-bright);
+    border: 1px solid rgba(167,139,250,0.2);
+  }
+  .status-running {
+    background: rgba(240,171,252,0.1); color: var(--accent);
+    border: 1px solid rgba(240,171,252,0.18);
+  }
+  .status-idle {
+    background: rgba(161,161,170,0.08); color: var(--fg-dim);
+    border: 1px solid rgba(161,161,170,0.12);
+  }
+  /* Activity feed column */
+  .agent-bar-mini {
+    width: 80px; height: 4px; border-radius: 2px;
+    background: rgba(255,255,255,0.05);
+    overflow: hidden;
+  }
+  .agent-bar-fill { height: 100%; border-radius: 2px; }
+
+  /* SOCIAL PROOF */
+  .social-proof {
+    padding: 4rem 2rem; text-align: center;
+    border-top: 1px solid var(--card-border);
+    border-bottom: 1px solid var(--card-border);
+  }
+  .social-proof p {
+    font-size: 0.78rem; color: var(--fg-dim); font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 2rem;
+  }
+  .logos-row {
+    display: flex; justify-content: center; gap: 3rem; align-items: center;
+    flex-wrap: wrap; max-width: 800px; margin: 0 auto; opacity: 0.25;
+  }
+  .logo-placeholder { font-size: 1.1rem; font-weight: 700; color: var(--fg); }
+
+  /* FEATURES — Bento grid */
+  .features {
+    padding: 7rem 2rem;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .section-header { text-align: center; margin-bottom: 4rem; }
+  .section-label {
+    font-size: 0.78rem; font-weight: 600; color: var(--primary);
+    text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 0.75rem;
+  }
+  .section-header h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 400; margin-bottom: 1rem;
+  }
+  .section-header h2 em {
+    font-style: italic;
+    color: var(--primary-bright);
+  }
+  .section-header p {
+    font-size: 1.05rem; color: var(--fg-muted); max-width: 520px; margin: 0 auto;
+  }
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 1rem;
+  }
+  .bento-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    transition: all 0.25s ease-out;
+    position: relative; overflow: hidden;
+  }
+  .bento-card.wide { grid-column: span 2; }
+  .bento-card::after {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-deep), var(--accent-deep), transparent);
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .bento-card:hover {
+    border-color: var(--card-border-hover);
+    background: rgba(255,255,255,0.04);
+    transform: translateY(-2px);
+  }
+  .bento-card:hover::after { opacity: 0.6; }
+  .bento-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+  .bento-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .bento-card p { font-size: 0.88rem; color: var(--fg-muted); line-height: 1.6; }
+
+  /* HOW IT WORKS */
+  .how-it-works {
+    padding: 7rem 2rem;
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--card-border);
+    border-bottom: 1px solid var(--card-border);
+  }
+  .steps {
+    max-width: 900px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+    position: relative;
+  }
+  .steps::before {
+    content: '';
+    position: absolute; top: 28px; left: 12%; right: 12%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-deep), var(--accent-deep), transparent);
+    opacity: 0.4;
+  }
+  .step { text-align: center; position: relative; }
+  .step-number {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--bg);
+    border: 1px solid var(--card-border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display);
+    font-size: 1.15rem; color: var(--primary-bright);
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 0 24px var(--glow-primary);
+  }
+  .step h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .step p { font-size: 0.88rem; color: var(--fg-muted); }
+
+  /* PRICING */
+  .pricing {
+    padding: 7rem 2rem;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+  }
+  .pricing-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem;
+    display: flex; flex-direction: column;
+    transition: all 0.25s ease-out;
+  }
+  .pricing-card:hover { transform: translateY(-3px); }
+  .pricing-card.featured {
+    border-color: var(--primary-deep);
+    background: linear-gradient(180deg, rgba(124,58,237,0.06) 0%, var(--card) 50%);
+    box-shadow: 0 0 50px var(--glow-primary), 0 0 80px var(--glow-accent);
+    position: relative;
+  }
+  .pricing-card.featured::before {
+    content: 'Most Popular';
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--primary-deep), var(--accent-deep));
+    color: #fff; font-weight: 700;
+    padding: 0.3rem 1.2rem; border-radius: 999px;
+    font-size: 0.72rem;
+  }
+  .pricing-name {
+    font-family: var(--font-display);
+    font-size: 1.15rem; margin-bottom: 0.5rem;
+  }
+  .pricing-price {
+    font-size: 2.75rem; font-weight: 800; letter-spacing: -0.04em;
+    margin-bottom: 0.25rem; font-variant-numeric: tabular-nums;
+  }
+  .pricing-price span { font-size: 1rem; font-weight: 400; color: var(--fg-dim); }
+  .pricing-desc { font-size: 0.85rem; color: var(--fg-dim); margin-bottom: 2rem; }
+  .pricing-features { list-style: none; margin-bottom: 2rem; flex: 1; }
+  .pricing-features li {
+    padding: 0.45rem 0; font-size: 0.88rem; color: var(--fg-muted);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .pricing-features li::before {
+    content: '';
+    width: 16px; height: 16px; border-radius: 50%;
+    background: rgba(167,139,250,0.08);
+    border: 1.5px solid var(--primary);
+    flex-shrink: 0;
+  }
+  .pricing-card .btn { width: 100%; justify-content: center; }
+  .btn-surface {
+    background: var(--bg-surface); color: var(--fg-muted);
+    border: 1px solid var(--card-border);
+  }
+  .btn-surface:hover { background: rgba(255,255,255,0.06); color: var(--fg); }
+
+  /* CTA */
+  .final-cta {
+    padding: 7rem 2rem; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .final-cta::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 40% 50%, rgba(124,58,237,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 60% 50%, rgba(217,70,239,0.04) 0%, transparent 50%);
+  }
+  .final-cta > * { position: relative; z-index: 1; }
+  .final-cta h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw, 2.5rem);
+    font-weight: 400; margin-bottom: 1rem;
+  }
+  .final-cta h2 em { font-style: italic; color: var(--primary-bright); }
+  .final-cta p {
+    font-size: 1.05rem; color: var(--fg-muted); margin-bottom: 2.5rem;
+    max-width: 460px; margin-left: auto; margin-right: auto;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 4rem 2rem 2rem;
+    border-top: 1px solid var(--card-border);
+    max-width: 1200px; margin: 0 auto;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .footer-brand .logo { margin-bottom: 1rem; }
+  .footer-brand p { font-size: 0.85rem; color: var(--fg-dim); max-width: 280px; }
+  .footer-col h4 {
+    font-family: var(--font-display);
+    font-size: 0.9rem; margin-bottom: 1rem;
+  }
+  .footer-col a {
+    display: block; font-size: 0.85rem; color: var(--fg-dim);
+    text-decoration: none; margin-bottom: 0.6rem;
+  }
+  .footer-col a:hover { color: var(--primary-bright); }
+  .footer-bottom {
+    border-top: 1px solid var(--card-border);
+    padding-top: 1.5rem; font-size: 0.8rem; color: var(--fg-dim);
+    display: flex; justify-content: space-between;
+  }
+
+  @media (max-width: 768px) {
+    .frame-body { grid-template-columns: 1fr; }
+    .frame-sidebar { display: none; }
+    .bento-grid { grid-template-columns: 1fr; }
+    .bento-card.wide { grid-column: span 1; }
+    .steps { grid-template-columns: 1fr; }
+    .steps::before { display: none; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links a:not(.btn) { display: none; }
+  }
+</style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <div class="logo"><em>M</em>elaro</div>
+      <div class="nav-links">
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">Docs</a>
+        <a href="#" class="btn btn-ghost">Log in</a>
+        <a href="#" class="btn btn-primary">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="aurora"></div>
+    <div class="grid-bg"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <div class="eyebrow-dot"><div class="eyebrow-dot-inner"></div></div>
+        <span class="eyebrow-text">Now in Early Access</span>
+      </div>
+      <h1>AI teams that work in<br><span class="shimmer">perfect harmony</span></h1>
+      <p>Deploy autonomous agent companies that plan, build, and ship together. Orchestrated intelligence, naturally balanced.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-primary">Start for Free</a>
+        <a href="#" class="btn btn-ghost">Watch Demo</a>
+      </div>
+    </div>
+
+    <!-- DASHBOARD VISUAL -->
+    <div class="hero-visual">
+      <div class="dashboard-frame">
+        <div class="frame-bar">
+          <div class="frame-dot" style="background:#FF5F57"></div>
+          <div class="frame-dot" style="background:#FEBC2E"></div>
+          <div class="frame-dot" style="background:#28C840"></div>
+          <div class="frame-tabs">
+            <div class="frame-tab active">Agents</div>
+            <div class="frame-tab">Issues</div>
+            <div class="frame-tab">Analytics</div>
+          </div>
+        </div>
+        <div class="frame-body">
+          <div class="frame-sidebar">
+            <div class="sidebar-section">Workspace</div>
+            <div class="sidebar-item active"><div class="sidebar-icon"></div>Website Redesign</div>
+            <div class="sidebar-item"><div class="sidebar-icon"></div>Mobile App</div>
+            <div class="sidebar-item"><div class="sidebar-icon"></div>API v2</div>
+            <div class="sidebar-section">Navigation</div>
+            <div class="sidebar-item"><div class="sidebar-icon"></div>Dashboard</div>
+            <div class="sidebar-item active"><div class="sidebar-icon"></div>Agent Team</div>
+            <div class="sidebar-item"><div class="sidebar-icon"></div>Issues</div>
+            <div class="sidebar-item"><div class="sidebar-icon"></div>Goals</div>
+            <div class="sidebar-item"><div class="sidebar-icon"></div>Cost Tracker</div>
+          </div>
+          <div class="frame-main">
+            <div class="main-header">
+              <h3>Agent Team</h3>
+              <span class="badge">4 agents active</span>
+            </div>
+            <div class="agents-list">
+              <div class="agent-row">
+                <div class="agent-av" style="background:linear-gradient(135deg,var(--primary-deep),var(--primary))">CEO</div>
+                <div class="agent-info">
+                  <div class="agent-info-name">Atlas</div>
+                  <div class="agent-info-role">Chief Executive</div>
+                </div>
+                <div class="agent-tasks">12/15 tasks</div>
+                <div class="agent-bar-mini"><div class="agent-bar-fill" style="width:80%;background:linear-gradient(90deg,var(--primary-deep),var(--primary))"></div></div>
+                <div class="agent-cost" style="color:var(--primary-bright)">$42.30</div>
+                <div class="agent-status-pill status-active">Active</div>
+              </div>
+              <div class="agent-row">
+                <div class="agent-av" style="background:linear-gradient(135deg,var(--accent-deep),var(--accent))">ENG</div>
+                <div class="agent-info">
+                  <div class="agent-info-name">Coder</div>
+                  <div class="agent-info-role">Lead Engineer</div>
+                </div>
+                <div class="agent-tasks">8/10 tasks</div>
+                <div class="agent-bar-mini"><div class="agent-bar-fill" style="width:80%;background:linear-gradient(90deg,var(--accent-deep),var(--accent))"></div></div>
+                <div class="agent-cost" style="color:var(--accent)">$67.85</div>
+                <div class="agent-status-pill status-running">Running</div>
+              </div>
+              <div class="agent-row">
+                <div class="agent-av" style="background:linear-gradient(135deg,#6366F1,#818CF8)">PM</div>
+                <div class="agent-info">
+                  <div class="agent-info-name">Nova</div>
+                  <div class="agent-info-role">Product Manager</div>
+                </div>
+                <div class="agent-tasks">5/8 tasks</div>
+                <div class="agent-bar-mini"><div class="agent-bar-fill" style="width:62%;background:linear-gradient(90deg,#6366F1,#818CF8)"></div></div>
+                <div class="agent-cost" style="color:var(--secondary)">$23.10</div>
+                <div class="agent-status-pill status-active">Active</div>
+              </div>
+              <div class="agent-row">
+                <div class="agent-av" style="background:linear-gradient(135deg,#E11D48,var(--warm))">QA</div>
+                <div class="agent-info">
+                  <div class="agent-info-name">Hawk</div>
+                  <div class="agent-info-role">Quality Assurance</div>
+                </div>
+                <div class="agent-tasks">3/6 tasks</div>
+                <div class="agent-bar-mini"><div class="agent-bar-fill" style="width:50%;background:linear-gradient(90deg,#E11D48,var(--warm))"></div></div>
+                <div class="agent-cost" style="color:var(--warm)">$11.40</div>
+                <div class="agent-status-pill status-idle">Idle</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section class="social-proof">
+    <p>Trusted by forward-thinking teams</p>
+    <div class="logos-row">
+      <span class="logo-placeholder">Acme Corp</span>
+      <span class="logo-placeholder">TechFlow</span>
+      <span class="logo-placeholder">DataWave</span>
+      <span class="logo-placeholder">BuildKit</span>
+      <span class="logo-placeholder">NexGen</span>
+    </div>
+  </section>
+
+  <!-- FEATURES — Bento Grid -->
+  <section class="features">
+    <div class="section-header">
+      <div class="section-label">Features</div>
+      <h2>The complete <em>orchestration</em> platform</h2>
+      <p>Everything you need to deploy, manage, and scale autonomous AI teams.</p>
+    </div>
+    <div class="bento-grid">
+      <div class="bento-card wide">
+        <div class="bento-icon" style="background:rgba(167,139,250,0.1);color:var(--primary-bright)">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="7" r="4"/><path d="M3 19c0-4 4-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <h3>Agent Teams with 140+ Personas</h3>
+        <p>Assemble teams of AI agents — CEO, CTO, Engineer, Designer, QA — each with unique skills, missions, and communication styles. Deploy from templates or build from scratch.</p>
+      </div>
+      <div class="bento-card">
+        <div class="bento-icon" style="background:rgba(240,171,252,0.1);color:var(--accent)">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="13" y="3" width="6" height="6" rx="1"/><rect x="3" y="13" width="6" height="6" rx="1"/><rect x="13" y="13" width="6" height="6" rx="1"/></svg>
+        </div>
+        <h3>Project Tracking</h3>
+        <p>Issues, goals, and milestones. Agents self-assign and collaborate autonomously.</p>
+      </div>
+      <div class="bento-card">
+        <div class="bento-icon" style="background:rgba(252,211,77,0.08);color:var(--amber)">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 1v4m0 12v4m-7-10H0m22 0h-4"/><circle cx="11" cy="11" r="4"/></svg>
+        </div>
+        <h3>Heartbeat Engine</h3>
+        <p>Agents wake on schedule, process tasks, and coordinate without intervention.</p>
+      </div>
+      <div class="bento-card wide">
+        <div class="bento-icon" style="background:rgba(129,140,248,0.1);color:var(--secondary)">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 21s7-4 7-9V5l-7-3-7 3v7c0 5 7 9 7 9z"/></svg>
+        </div>
+        <h3>Governance, Budgets & Audit Trail</h3>
+        <p>Set monthly budgets per agent with automatic enforcement. Require approvals for critical decisions like strategy changes and new hires. Every action is recorded in an immutable audit log.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works">
+    <div class="section-header">
+      <div class="section-label">How It Works</div>
+      <h2>Three steps to <em>launch</em></h2>
+      <p>From zero to autonomous in minutes.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Create Your Company</h3>
+        <p>Sign up, name your AI company, and configure your workspace.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Deploy Your Team</h3>
+        <p>Pick a template or assemble custom agents. Set roles, budgets, goals.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Let Them Ship</h3>
+        <p>Agents plan, build, and coordinate. You review and approve.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing">
+    <div class="section-header">
+      <div class="section-label">Pricing</div>
+      <h2>Simple, <em>predictable</em> pricing</h2>
+      <p>Start free. Scale when ready.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-name">Starter</div>
+        <div class="pricing-price">$0<span>/mo</span></div>
+        <div class="pricing-desc">Explore the platform.</div>
+        <ul class="pricing-features">
+          <li>1 company</li>
+          <li>3 agents</li>
+          <li>100 heartbeats/mo</li>
+          <li>Community support</li>
+        </ul>
+        <a href="#" class="btn btn-surface">Get Started</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-name">Pro</div>
+        <div class="pricing-price">$49<span>/mo</span></div>
+        <div class="pricing-desc">For serious builders.</div>
+        <ul class="pricing-features">
+          <li>5 companies</li>
+          <li>25 agents</li>
+          <li>Unlimited heartbeats</li>
+          <li>Priority support</li>
+          <li>Advanced analytics</li>
+        </ul>
+        <a href="#" class="btn btn-primary">Get Started</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-name">Enterprise</div>
+        <div class="pricing-price">Custom</div>
+        <div class="pricing-desc">For organizations at scale.</div>
+        <ul class="pricing-features">
+          <li>Unlimited everything</li>
+          <li>SSO & SAML</li>
+          <li>Dedicated support</li>
+          <li>Custom integrations</li>
+          <li>SLA guarantee</li>
+        </ul>
+        <a href="#" class="btn btn-surface">Contact Sales</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <h2>Ready to deploy your <em>AI team</em>?</h2>
+    <p>Join the builders creating the next generation of autonomous AI companies.</p>
+    <a href="#" class="btn btn-primary" style="font-size:1rem;padding:0.8rem 2.5rem">Start for Free</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><em>M</em>elaro</div>
+        <p>Autonomous AI orchestration. Build teams that plan, collaborate, and deliver in perfect harmony.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">Docs</a>
+        <a href="#">Changelog</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Careers</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Security</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>2026 Melaro. All rights reserved.</span>
+      <span>Crafted with precision.</span>
+    </div>
+  </footer>
+</body>
+</html>

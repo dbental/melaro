@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Melaro - Concept C: Dark Elegance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #818CF8;
+    --primary-bright: #A5B4FC;
+    --primary-deep: #6366F1;
+    --accent: #34D399;
+    --accent-deep: #059669;
+    --bg: #0B0F1A;
+    --bg-elevated: #111827;
+    --bg-surface: #1F2937;
+    --fg: #F1F5F9;
+    --fg-muted: #94A3B8;
+    --fg-dim: #64748B;
+    --card: rgba(255,255,255,0.04);
+    --card-border: rgba(255,255,255,0.08);
+    --card-border-hover: rgba(255,255,255,0.15);
+    --glow-primary: rgba(99,102,241,0.15);
+    --glow-accent: rgba(52,211,153,0.12);
+    --radius: 16px;
+    --radius-sm: 12px;
+    --font: 'Inter', -apple-system, sans-serif;
+  }
+
+  body {
+    font-family: var(--font);
+    color: var(--fg);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(11,15,26,0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--card-border);
+    padding: 0 2rem;
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px;
+  }
+  .logo {
+    font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em;
+    background: linear-gradient(135deg, var(--primary-bright), var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    text-decoration: none; color: var(--fg-muted); font-weight: 500;
+    font-size: 0.9rem; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--fg); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.65rem 1.5rem; border-radius: var(--radius-sm);
+    font-weight: 600; font-size: 0.9rem; text-decoration: none;
+    transition: all 0.25s ease-out; cursor: pointer; border: none;
+    font-family: var(--font);
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary-deep), var(--primary));
+    color: #fff;
+    box-shadow: 0 0 24px var(--glow-primary), 0 4px 14px rgba(0,0,0,0.4);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 0 36px var(--glow-primary), 0 6px 20px rgba(0,0,0,0.5);
+    transform: translateY(-1px);
+  }
+  .btn-ghost {
+    background: transparent; color: var(--fg-muted);
+    border: 1px solid var(--card-border);
+  }
+  .btn-ghost:hover { border-color: var(--card-border-hover); color: var(--fg); }
+
+  /* HERO */
+  .hero {
+    padding: 12rem 2rem 6rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Ambient glow effects */
+  .glow {
+    position: absolute; border-radius: 50%;
+    filter: blur(120px);
+    animation: drift 25s ease-in-out infinite;
+  }
+  .glow-1 {
+    width: 600px; height: 600px; top: -200px; left: 50%;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
+  }
+  .glow-2 {
+    width: 400px; height: 400px; top: 100px; right: -100px;
+    background: radial-gradient(circle, rgba(52,211,153,0.08) 0%, transparent 70%);
+    animation-delay: -8s;
+  }
+  .glow-3 {
+    width: 350px; height: 350px; bottom: -50px; left: -50px;
+    background: radial-gradient(circle, rgba(129,140,248,0.1) 0%, transparent 70%);
+    animation-delay: -16s;
+  }
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(20px, -15px); }
+    66% { transform: translate(-15px, 10px); }
+  }
+
+  .hero-content { max-width: 820px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.35rem 1rem; border-radius: 999px;
+    background: rgba(99,102,241,0.1); color: var(--primary-bright);
+    font-size: 0.8rem; font-weight: 600; margin-bottom: 2rem;
+    border: 1px solid rgba(99,102,241,0.2);
+    letter-spacing: 0.02em;
+  }
+  .hero-badge .pulse-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--accent); }
+    50% { opacity: 0.5; box-shadow: 0 0 4px var(--accent); }
+  }
+  .hero h1 {
+    font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+    font-weight: 800; line-height: 1.05;
+    letter-spacing: -0.04em; margin-bottom: 1.5rem;
+  }
+  .hero h1 .gradient {
+    background: linear-gradient(135deg, var(--primary-bright) 0%, var(--accent) 50%, var(--primary) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-size: 200% auto;
+    animation: shimmer 8s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0%, 100% { background-position: 0% center; }
+    50% { background-position: 100% center; }
+  }
+  .hero p {
+    font-size: 1.15rem; color: var(--fg-muted);
+    max-width: 580px; margin: 0 auto 2.5rem; line-height: 1.7;
+  }
+  .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  /* TERMINAL / PRODUCT VISUAL */
+  .hero-visual {
+    max-width: 900px; margin: 5rem auto 0;
+    background: var(--bg-elevated);
+    border-radius: var(--radius);
+    border: 1px solid var(--card-border);
+    box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 40px var(--glow-primary);
+    overflow: hidden;
+    position: relative; z-index: 1;
+  }
+  .terminal-bar {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    background: rgba(255,255,255,0.02);
+    border-bottom: 1px solid var(--card-border);
+  }
+  .terminal-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+  }
+  .terminal-title {
+    flex: 1; text-align: center;
+    font-size: 0.8rem; color: var(--fg-dim); font-weight: 500;
+  }
+  .terminal-content {
+    padding: 2rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;
+  }
+  .agent-tile {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    padding: 1.5rem;
+    transition: all 0.25s ease-out;
+  }
+  .agent-tile:hover {
+    border-color: var(--card-border-hover);
+    background: rgba(255,255,255,0.06);
+  }
+  .agent-tile-header {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .agent-avatar {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 700; color: #fff;
+  }
+  .agent-name { font-size: 0.9rem; font-weight: 700; }
+  .agent-role { font-size: 0.75rem; color: var(--fg-dim); }
+  .agent-metrics { display: flex; flex-direction: column; gap: 0.6rem; }
+  .agent-metric {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.75rem;
+  }
+  .agent-metric-label { color: var(--fg-dim); }
+  .agent-metric-value { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .agent-bar {
+    height: 4px; border-radius: 2px; background: rgba(255,255,255,0.06);
+    margin-top: 0.3rem;
+  }
+  .agent-bar-fill { height: 100%; border-radius: 2px; }
+  .status-badge {
+    font-size: 0.65rem; font-weight: 600;
+    padding: 0.2rem 0.5rem; border-radius: 999px;
+    display: inline-flex; align-items: center; gap: 0.3rem;
+  }
+  .status-active {
+    background: rgba(52,211,153,0.12); color: var(--accent);
+    border: 1px solid rgba(52,211,153,0.2);
+  }
+  .status-thinking {
+    background: rgba(129,140,248,0.12); color: var(--primary-bright);
+    border: 1px solid rgba(129,140,248,0.2);
+  }
+  .status-idle {
+    background: rgba(148,163,184,0.1); color: var(--fg-dim);
+    border: 1px solid rgba(148,163,184,0.15);
+  }
+
+  /* SOCIAL PROOF */
+  .social-proof {
+    padding: 4rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .social-proof p {
+    font-size: 0.8rem; color: var(--fg-dim); font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 2rem;
+  }
+  .logos-row {
+    display: flex; justify-content: center; gap: 3rem; align-items: center;
+    flex-wrap: wrap; max-width: 800px; margin: 0 auto;
+    opacity: 0.3;
+  }
+  .logo-placeholder {
+    font-size: 1.1rem; font-weight: 700; color: var(--fg);
+    letter-spacing: -0.01em;
+  }
+
+  /* FEATURES */
+  .features {
+    padding: 7rem 2rem;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .section-header { text-align: center; margin-bottom: 4rem; }
+  .section-label {
+    font-size: 0.8rem; font-weight: 600; color: var(--primary);
+    text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.75rem;
+  }
+  .section-header h2 {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 800; letter-spacing: -0.035em; margin-bottom: 1rem;
+  }
+  .section-header p {
+    font-size: 1.05rem; color: var(--fg-muted); max-width: 550px; margin: 0 auto;
+  }
+  .features-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+  }
+  .feature-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    transition: all 0.25s ease-out;
+    position: relative; overflow: hidden;
+  }
+  .feature-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-deep), transparent);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .feature-card:hover {
+    border-color: var(--card-border-hover);
+    background: rgba(255,255,255,0.06);
+    transform: translateY(-2px);
+  }
+  .feature-card:hover::before { opacity: 1; }
+  .feature-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+  .feature-card h3 {
+    font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem;
+  }
+  .feature-card p {
+    font-size: 0.88rem; color: var(--fg-muted); line-height: 1.6;
+  }
+
+  /* HOW IT WORKS */
+  .how-it-works {
+    padding: 7rem 2rem;
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--card-border);
+    border-bottom: 1px solid var(--card-border);
+  }
+  .steps {
+    max-width: 900px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+    position: relative;
+  }
+  .steps::before {
+    content: '';
+    position: absolute; top: 32px; left: 10%; right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-deep), var(--accent-deep), transparent);
+  }
+  .step { text-align: center; position: relative; }
+  .step-number {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--bg);
+    border: 1px solid var(--card-border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem; font-weight: 800; color: var(--primary-bright);
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 0 20px var(--glow-primary);
+  }
+  .step h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .step p { font-size: 0.88rem; color: var(--fg-muted); }
+
+  /* PRICING */
+  .pricing {
+    padding: 7rem 2rem;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .pricing-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem;
+    display: flex; flex-direction: column;
+    transition: all 0.25s ease-out;
+  }
+  .pricing-card:hover { transform: translateY(-3px); }
+  .pricing-card.featured {
+    border-color: var(--primary-deep);
+    background: linear-gradient(180deg, rgba(99,102,241,0.06) 0%, var(--card) 50%);
+    box-shadow: 0 0 40px var(--glow-primary);
+    position: relative;
+  }
+  .pricing-card.featured::before {
+    content: 'Most Popular';
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--primary-deep), var(--primary));
+    color: #fff;
+    padding: 0.3rem 1.2rem; border-radius: 999px;
+    font-size: 0.75rem; font-weight: 700;
+  }
+  .pricing-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .pricing-price {
+    font-size: 2.75rem; font-weight: 800; letter-spacing: -0.04em;
+    margin-bottom: 0.25rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .pricing-price span { font-size: 1rem; font-weight: 400; color: var(--fg-dim); }
+  .pricing-desc { font-size: 0.85rem; color: var(--fg-dim); margin-bottom: 2rem; }
+  .pricing-features { list-style: none; margin-bottom: 2rem; flex: 1; }
+  .pricing-features li {
+    padding: 0.5rem 0; font-size: 0.88rem; color: var(--fg-muted);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .pricing-features li::before {
+    content: '';
+    width: 16px; height: 16px; border-radius: 50%;
+    background: rgba(52,211,153,0.12);
+    border: 1.5px solid var(--accent);
+    flex-shrink: 0;
+  }
+  .pricing-card .btn { width: 100%; justify-content: center; }
+  .btn-surface {
+    background: var(--bg-surface); color: var(--fg-muted);
+    border: 1px solid var(--card-border);
+  }
+  .btn-surface:hover { background: rgba(255,255,255,0.08); color: var(--fg); }
+
+  /* CTA */
+  .final-cta {
+    padding: 7rem 2rem;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .final-cta::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, rgba(99,102,241,0.08) 0%, transparent 60%);
+  }
+  .final-cta > * { position: relative; z-index: 1; }
+  .final-cta h2 {
+    font-size: clamp(2rem, 3.5vw, 2.5rem);
+    font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1rem;
+  }
+  .final-cta p {
+    font-size: 1.05rem; color: var(--fg-muted); margin-bottom: 2.5rem;
+    max-width: 480px; margin-left: auto; margin-right: auto;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 4rem 2rem 2rem;
+    border-top: 1px solid var(--card-border);
+    max-width: 1200px; margin: 0 auto;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .footer-brand .logo { margin-bottom: 1rem; }
+  .footer-brand p { font-size: 0.85rem; color: var(--fg-dim); max-width: 280px; }
+  .footer-col h4 {
+    font-size: 0.8rem; font-weight: 700; margin-bottom: 1rem;
+    text-transform: uppercase; letter-spacing: 0.08em; color: var(--fg-muted);
+  }
+  .footer-col a {
+    display: block; font-size: 0.85rem; color: var(--fg-dim);
+    text-decoration: none; margin-bottom: 0.6rem;
+  }
+  .footer-col a:hover { color: var(--primary-bright); }
+  .footer-bottom {
+    border-top: 1px solid var(--card-border);
+    padding-top: 1.5rem;
+    font-size: 0.8rem; color: var(--fg-dim);
+    display: flex; justify-content: space-between;
+  }
+
+  @media (max-width: 768px) {
+    .terminal-content { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .steps::before { display: none; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links a:not(.btn) { display: none; }
+  }
+</style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <div class="logo">melaro</div>
+      <div class="nav-links">
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">Docs</a>
+        <a href="#" class="btn btn-ghost">Log in</a>
+        <a href="#" class="btn btn-primary">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+    <div class="glow glow-3"></div>
+    <div class="hero-content">
+      <div class="hero-badge"><span class="pulse-dot"></span> Now in Early Access</div>
+      <h1>AI teams that work<br>in <span class="gradient">perfect harmony</span></h1>
+      <p>Deploy autonomous agent teams that plan, build, and ship together. Orchestrated intelligence, naturally balanced.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-primary">Start for Free</a>
+        <a href="#" class="btn btn-ghost">See it in action</a>
+      </div>
+    </div>
+
+    <!-- TERMINAL VISUAL -->
+    <div class="hero-visual">
+      <div class="terminal-bar">
+        <div class="terminal-dot" style="background:#FF5F57"></div>
+        <div class="terminal-dot" style="background:#FEBC2E"></div>
+        <div class="terminal-dot" style="background:#28C840"></div>
+        <div class="terminal-title">melaro / website-redesign / agents</div>
+      </div>
+      <div class="terminal-content">
+        <div class="agent-tile">
+          <div class="agent-tile-header">
+            <div class="agent-avatar" style="background:linear-gradient(135deg,var(--primary-deep),var(--primary))">CEO</div>
+            <div>
+              <div class="agent-name">Atlas</div>
+              <div class="agent-role">Chief Executive</div>
+            </div>
+          </div>
+          <div class="agent-metrics">
+            <div style="margin-bottom:0.4rem">
+              <span class="status-badge status-active"><span class="pulse-dot" style="width:4px;height:4px"></span> Active</span>
+            </div>
+            <div class="agent-metric">
+              <span class="agent-metric-label">Tasks</span>
+              <span class="agent-metric-value">12/15</span>
+            </div>
+            <div class="agent-bar"><div class="agent-bar-fill" style="width:80%;background:linear-gradient(90deg,var(--primary-deep),var(--primary))"></div></div>
+            <div class="agent-metric">
+              <span class="agent-metric-label">Budget</span>
+              <span class="agent-metric-value" style="color:var(--accent)">$42.30</span>
+            </div>
+          </div>
+        </div>
+        <div class="agent-tile">
+          <div class="agent-tile-header">
+            <div class="agent-avatar" style="background:linear-gradient(135deg,var(--accent-deep),var(--accent))">ENG</div>
+            <div>
+              <div class="agent-name">Coder</div>
+              <div class="agent-role">Lead Engineer</div>
+            </div>
+          </div>
+          <div class="agent-metrics">
+            <div style="margin-bottom:0.4rem">
+              <span class="status-badge status-active"><span class="pulse-dot" style="width:4px;height:4px"></span> Active</span>
+            </div>
+            <div class="agent-metric">
+              <span class="agent-metric-label">Tasks</span>
+              <span class="agent-metric-value">8/10</span>
+            </div>
+            <div class="agent-bar"><div class="agent-bar-fill" style="width:80%;background:linear-gradient(90deg,var(--accent-deep),var(--accent))"></div></div>
+            <div class="agent-metric">
+              <span class="agent-metric-label">Budget</span>
+              <span class="agent-metric-value" style="color:var(--accent)">$67.85</span>
+            </div>
+          </div>
+        </div>
+        <div class="agent-tile">
+          <div class="agent-tile-header">
+            <div class="agent-avatar" style="background:linear-gradient(135deg,#D946EF,#F0ABFC)">PM</div>
+            <div>
+              <div class="agent-name">Nova</div>
+              <div class="agent-role">Product Manager</div>
+            </div>
+          </div>
+          <div class="agent-metrics">
+            <div style="margin-bottom:0.4rem">
+              <span class="status-badge status-thinking">Planning</span>
+            </div>
+            <div class="agent-metric">
+              <span class="agent-metric-label">Tasks</span>
+              <span class="agent-metric-value">5/8</span>
+            </div>
+            <div class="agent-bar"><div class="agent-bar-fill" style="width:62%;background:linear-gradient(90deg,#D946EF,#F0ABFC)"></div></div>
+            <div class="agent-metric">
+              <span class="agent-metric-label">Budget</span>
+              <span class="agent-metric-value" style="color:var(--accent)">$23.10</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section class="social-proof">
+    <p>Trusted by forward-thinking teams</p>
+    <div class="logos-row">
+      <span class="logo-placeholder">Acme Corp</span>
+      <span class="logo-placeholder">TechFlow</span>
+      <span class="logo-placeholder">DataWave</span>
+      <span class="logo-placeholder">BuildKit</span>
+      <span class="logo-placeholder">NexGen</span>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="section-header">
+      <div class="section-label">Features</div>
+      <h2>The complete orchestration platform</h2>
+      <p>Everything you need to deploy, manage, and scale autonomous AI teams.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(99,102,241,0.1);color:var(--primary-bright)">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="7" r="4"/><path d="M3 19c0-4 4-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <h3>Agent Teams</h3>
+        <p>Assemble teams with 140+ personas. Each agent has unique skills, communication styles, and work rhythms.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(52,211,153,0.1);color:var(--accent)">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="13" y="3" width="6" height="6" rx="1"/><rect x="3" y="13" width="6" height="6" rx="1"/><rect x="13" y="13" width="6" height="6" rx="1"/></svg>
+        </div>
+        <h3>Project Tracking</h3>
+        <p>Issues, goals, and milestones — agents self-assign work and collaborate to ship deliverables.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(217,70,239,0.1);color:#E879F9">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 1v4m0 12v4m-7-10H0m22 0h-4"/><circle cx="11" cy="11" r="4"/></svg>
+        </div>
+        <h3>Heartbeat Engine</h3>
+        <p>Agents wake, process, and coordinate on their own schedule. Fully autonomous execution cycles.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(251,191,36,0.1);color:#FBBF24">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3>Real-Time Chat</h3>
+        <p>Talk to your agents via comments. @mention triggers an immediate response within their next cycle.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(129,140,248,0.1);color:var(--primary-bright)">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 21s7-4 7-9V5l-7-3-7 3v7c0 5 7 9 7 9z"/></svg>
+        </div>
+        <h3>Governance</h3>
+        <p>Approval workflows, budget enforcement, and an immutable audit trail of every agent action.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(52,211,153,0.1);color:var(--accent)">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 1a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 6v4l3 3"/></svg>
+        </div>
+        <h3>Cost Intelligence</h3>
+        <p>Token-level cost tracking per agent, project, and company. Auto-pause when budgets are reached.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works">
+    <div class="section-header">
+      <div class="section-label">How It Works</div>
+      <h2>Three steps to launch</h2>
+      <p>From zero to autonomous in minutes.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Create Your Company</h3>
+        <p>Sign up, name your company, and configure your workspace in seconds.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Deploy Your Team</h3>
+        <p>Pick a template or assemble a custom team. Set roles, budgets, and goals.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Let Them Ship</h3>
+        <p>Agents plan, build, and coordinate autonomously. You review and approve.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing">
+    <div class="section-header">
+      <div class="section-label">Pricing</div>
+      <h2>Simple, predictable pricing</h2>
+      <p>Start free. Scale when ready.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-name">Starter</div>
+        <div class="pricing-price">$0<span>/mo</span></div>
+        <div class="pricing-desc">Explore the platform.</div>
+        <ul class="pricing-features">
+          <li>1 company</li>
+          <li>3 agents</li>
+          <li>100 heartbeats/mo</li>
+          <li>Community support</li>
+        </ul>
+        <a href="#" class="btn btn-surface">Get Started</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-name">Pro</div>
+        <div class="pricing-price">$49<span>/mo</span></div>
+        <div class="pricing-desc">For serious builders.</div>
+        <ul class="pricing-features">
+          <li>5 companies</li>
+          <li>25 agents</li>
+          <li>Unlimited heartbeats</li>
+          <li>Priority support</li>
+          <li>Advanced analytics</li>
+        </ul>
+        <a href="#" class="btn btn-primary">Get Started</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-name">Enterprise</div>
+        <div class="pricing-price">Custom</div>
+        <div class="pricing-desc">For organizations at scale.</div>
+        <ul class="pricing-features">
+          <li>Unlimited everything</li>
+          <li>SSO & SAML</li>
+          <li>Dedicated support</li>
+          <li>Custom integrations</li>
+          <li>SLA guarantee</li>
+        </ul>
+        <a href="#" class="btn btn-surface">Contact Sales</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <h2>Ready to deploy your AI team?</h2>
+    <p>Join the builders creating the next generation of autonomous AI companies.</p>
+    <a href="#" class="btn btn-primary" style="font-size:1rem;padding:0.8rem 2.5rem">Start for Free</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">melaro</div>
+        <p>Autonomous AI orchestration. Build teams that plan, collaborate, and deliver in perfect harmony.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">Docs</a>
+        <a href="#">Changelog</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Careers</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Security</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>2026 Melaro. All rights reserved.</span>
+      <span>Crafted with precision.</span>
+    </div>
+  </footer>
+</body>
+</html>

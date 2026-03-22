@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Melaro - Concept A: Calm Indigo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #6366F1;
+    --primary-hover: #4F46E5;
+    --secondary: #818CF8;
+    --accent: #059669;
+    --accent-light: #10B981;
+    --bg: #FAFAFF;
+    --bg-hero: linear-gradient(135deg, #EEF2FF 0%, #F5F3FF 40%, #FDF4FF 100%);
+    --fg: #1E1B4B;
+    --fg-muted: #6B7280;
+    --card: #FFFFFF;
+    --card-border: #E0E7FF;
+    --muted-bg: #F1F0FB;
+    --radius: 16px;
+    --radius-sm: 12px;
+    --font: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  }
+
+  body {
+    font-family: var(--font);
+    color: var(--fg);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(250,250,255,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--card-border);
+    padding: 0 2rem;
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px;
+  }
+  .logo {
+    font-size: 1.5rem; font-weight: 800; color: var(--primary);
+    letter-spacing: -0.03em;
+  }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    text-decoration: none; color: var(--fg-muted); font-weight: 500;
+    font-size: 0.9rem; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--fg); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.65rem 1.5rem; border-radius: var(--radius-sm);
+    font-weight: 600; font-size: 0.9rem; text-decoration: none;
+    transition: all 0.2s ease-out; cursor: pointer; border: none;
+    font-family: var(--font);
+  }
+  .btn-primary {
+    background: var(--primary); color: #fff;
+    box-shadow: 0 4px 14px rgba(99,102,241,0.35);
+  }
+  .btn-primary:hover {
+    background: var(--primary-hover);
+    box-shadow: 0 6px 20px rgba(99,102,241,0.45);
+    transform: translateY(-1px);
+  }
+  .btn-ghost {
+    background: transparent; color: var(--fg);
+    border: 1.5px solid var(--card-border);
+  }
+  .btn-ghost:hover { border-color: var(--primary); color: var(--primary); }
+
+  /* HERO */
+  .hero {
+    background: var(--bg-hero);
+    padding: 10rem 2rem 6rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -150px; left: -150px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(5,150,105,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-content { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.4rem 1rem; border-radius: 999px;
+    background: rgba(99,102,241,0.08); color: var(--primary);
+    font-size: 0.85rem; font-weight: 600; margin-bottom: 1.5rem;
+    border: 1px solid rgba(99,102,241,0.15);
+  }
+  .hero-badge .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -0.03em; margin-bottom: 1.5rem;
+  }
+  .hero h1 .gradient {
+    background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    font-size: 1.2rem; color: var(--fg-muted);
+    max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.7;
+  }
+  .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  /* PRODUCT VISUAL */
+  .hero-visual {
+    max-width: 1000px; margin: 4rem auto 0;
+    background: var(--card);
+    border-radius: 20px;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 20px 60px rgba(99,102,241,0.1), 0 1px 3px rgba(0,0,0,0.04);
+    padding: 2rem;
+    position: relative; z-index: 1;
+  }
+  .mock-dashboard {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 1.5rem;
+    min-height: 340px;
+  }
+  .mock-sidebar {
+    background: var(--muted-bg);
+    border-radius: var(--radius-sm);
+    padding: 1.5rem;
+  }
+  .mock-sidebar-item {
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    margin-bottom: 0.3rem;
+    font-size: 0.8rem;
+    color: var(--fg-muted);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .mock-sidebar-item.active {
+    background: var(--primary);
+    color: #fff;
+    font-weight: 600;
+  }
+  .mock-sidebar-icon {
+    width: 16px; height: 16px; border-radius: 4px;
+    background: currentColor; opacity: 0.3;
+  }
+  .mock-sidebar-item.active .mock-sidebar-icon { opacity: 0.6; }
+  .mock-main { display: flex; flex-direction: column; gap: 1rem; }
+  .mock-topbar {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .mock-topbar h3 { font-size: 1rem; font-weight: 700; }
+  .mock-status {
+    display: flex; gap: 0.5rem;
+  }
+  .mock-status-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+  .mock-agents-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+    flex: 1;
+  }
+  .mock-agent-card {
+    background: var(--muted-bg);
+    border-radius: var(--radius-sm);
+    padding: 1.2rem;
+    display: flex; flex-direction: column; gap: 0.5rem;
+  }
+  .mock-agent-avatar {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 700; color: #fff;
+  }
+  .mock-agent-name { font-size: 0.8rem; font-weight: 700; }
+  .mock-agent-role { font-size: 0.7rem; color: var(--fg-muted); }
+  .mock-agent-status {
+    font-size: 0.65rem; font-weight: 600;
+    padding: 0.2rem 0.5rem; border-radius: 999px;
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    width: fit-content;
+  }
+  .mock-agent-status.active { background: #DCFCE7; color: #166534; }
+  .mock-agent-status.idle { background: #FEF3C7; color: #92400E; }
+  .mock-agent-status.thinking { background: #EEF2FF; color: #4338CA; }
+
+  /* SOCIAL PROOF */
+  .social-proof {
+    padding: 4rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .social-proof p {
+    font-size: 0.85rem; color: var(--fg-muted); font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2rem;
+  }
+  .logos-row {
+    display: flex; justify-content: center; gap: 3rem; align-items: center;
+    flex-wrap: wrap; max-width: 800px; margin: 0 auto;
+    opacity: 0.4;
+  }
+  .logo-placeholder {
+    font-size: 1.1rem; font-weight: 700; color: var(--fg);
+    letter-spacing: -0.02em;
+  }
+
+  /* FEATURES */
+  .features {
+    padding: 6rem 2rem;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .section-header {
+    text-align: center; margin-bottom: 4rem;
+  }
+  .section-label {
+    font-size: 0.85rem; font-weight: 600; color: var(--primary);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem;
+  }
+  .section-header h2 {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1rem;
+  }
+  .section-header p {
+    font-size: 1.1rem; color: var(--fg-muted); max-width: 600px; margin: 0 auto;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  .feature-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    transition: all 0.25s ease-out;
+  }
+  .feature-card:hover {
+    border-color: var(--secondary);
+    box-shadow: 0 8px 30px rgba(99,102,241,0.08);
+    transform: translateY(-2px);
+  }
+  .feature-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem; font-size: 1.3rem;
+  }
+  .feature-card h3 {
+    font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem;
+  }
+  .feature-card p {
+    font-size: 0.9rem; color: var(--fg-muted); line-height: 1.6;
+  }
+
+  /* HOW IT WORKS */
+  .how-it-works {
+    padding: 6rem 2rem;
+    background: var(--muted-bg);
+  }
+  .steps {
+    max-width: 1000px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem;
+    position: relative;
+  }
+  .steps::before {
+    content: '';
+    position: absolute; top: 40px; left: 15%; right: 15%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent-light));
+    opacity: 0.3;
+  }
+  .step { text-align: center; position: relative; }
+  .step-number {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: var(--card);
+    border: 2px solid var(--primary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; font-weight: 800; color: var(--primary);
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 4px 14px rgba(99,102,241,0.15);
+  }
+  .step h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .step p { font-size: 0.9rem; color: var(--fg-muted); }
+
+  /* PRICING */
+  .pricing {
+    padding: 6rem 2rem;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+  }
+  .pricing-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    display: flex; flex-direction: column;
+  }
+  .pricing-card.featured {
+    border-color: var(--primary);
+    box-shadow: 0 8px 30px rgba(99,102,241,0.12);
+    position: relative;
+  }
+  .pricing-card.featured::before {
+    content: 'Most Popular';
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--primary); color: #fff;
+    padding: 0.3rem 1rem; border-radius: 999px;
+    font-size: 0.75rem; font-weight: 700;
+  }
+  .pricing-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .pricing-price {
+    font-size: 2.5rem; font-weight: 800; letter-spacing: -0.03em;
+    margin-bottom: 0.25rem;
+  }
+  .pricing-price span { font-size: 1rem; font-weight: 400; color: var(--fg-muted); }
+  .pricing-desc { font-size: 0.85rem; color: var(--fg-muted); margin-bottom: 2rem; }
+  .pricing-features { list-style: none; margin-bottom: 2rem; flex: 1; }
+  .pricing-features li {
+    padding: 0.5rem 0; font-size: 0.9rem; color: var(--fg-muted);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .pricing-features li::before {
+    content: '';
+    width: 18px; height: 18px; border-radius: 50%;
+    background: #DCFCE7;
+    flex-shrink: 0;
+  }
+  .pricing-card .btn { width: 100%; justify-content: center; }
+  .btn-secondary {
+    background: var(--muted-bg); color: var(--fg);
+  }
+  .btn-secondary:hover { background: #E2E0F0; }
+
+  /* CTA */
+  .final-cta {
+    padding: 6rem 2rem;
+    text-align: center;
+    background: linear-gradient(135deg, #EEF2FF 0%, #F5F3FF 100%);
+  }
+  .final-cta h2 {
+    font-size: clamp(2rem, 3.5vw, 2.5rem);
+    font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1rem;
+  }
+  .final-cta p {
+    font-size: 1.1rem; color: var(--fg-muted); margin-bottom: 2rem;
+    max-width: 500px; margin-left: auto; margin-right: auto;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 4rem 2rem 2rem;
+    border-top: 1px solid var(--card-border);
+    max-width: 1200px; margin: 0 auto;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .footer-brand .logo { margin-bottom: 1rem; }
+  .footer-brand p { font-size: 0.85rem; color: var(--fg-muted); max-width: 280px; }
+  .footer-col h4 {
+    font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .footer-col a {
+    display: block; font-size: 0.85rem; color: var(--fg-muted);
+    text-decoration: none; margin-bottom: 0.6rem;
+  }
+  .footer-col a:hover { color: var(--primary); }
+  .footer-bottom {
+    border-top: 1px solid var(--card-border);
+    padding-top: 1.5rem;
+    font-size: 0.8rem; color: var(--fg-muted);
+    display: flex; justify-content: space-between;
+  }
+
+  @media (max-width: 768px) {
+    .mock-dashboard { grid-template-columns: 1fr; }
+    .mock-sidebar { display: none; }
+    .mock-agents-grid { grid-template-columns: repeat(2, 1fr); }
+    .features-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .steps::before { display: none; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links a:not(.btn) { display: none; }
+  }
+</style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <div class="logo">melaro<span>.</span></div>
+      <div class="nav-links">
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">Docs</a>
+        <a href="#" class="btn btn-ghost">Log in</a>
+        <a href="#" class="btn btn-primary">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge"><span class="dot"></span> Now in Early Access</div>
+      <h1>Orchestrate AI teams<br>in <span class="gradient">natural harmony</span></h1>
+      <p>Build autonomous AI agent teams that plan, collaborate, and deliver — while you focus on what matters most.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-primary">Start for Free</a>
+        <a href="#" class="btn btn-ghost">See how it works</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="mock-dashboard">
+        <div class="mock-sidebar">
+          <div style="font-weight:700;font-size:0.8rem;margin-bottom:1rem;color:var(--fg)">Projects</div>
+          <div class="mock-sidebar-item active"><div class="mock-sidebar-icon"></div> Website Redesign</div>
+          <div class="mock-sidebar-item"><div class="mock-sidebar-icon"></div> Mobile App v2</div>
+          <div class="mock-sidebar-item"><div class="mock-sidebar-icon"></div> API Integration</div>
+          <div style="font-weight:700;font-size:0.8rem;margin:1.5rem 0 1rem;color:var(--fg)">Teams</div>
+          <div class="mock-sidebar-item"><div class="mock-sidebar-icon"></div> Engineering</div>
+          <div class="mock-sidebar-item"><div class="mock-sidebar-icon"></div> Design</div>
+        </div>
+        <div class="mock-main">
+          <div class="mock-topbar">
+            <h3>Agent Team</h3>
+            <div class="mock-status">
+              <span style="font-size:0.75rem;color:var(--accent);font-weight:600">3 active</span>
+            </div>
+          </div>
+          <div class="mock-agents-grid">
+            <div class="mock-agent-card">
+              <div class="mock-agent-avatar" style="background:var(--primary)">CEO</div>
+              <div class="mock-agent-name">Atlas</div>
+              <div class="mock-agent-role">Chief Executive</div>
+              <div class="mock-agent-status active"><span class="dot" style="width:5px;height:5px;background:#166534"></span> Active</div>
+            </div>
+            <div class="mock-agent-card">
+              <div class="mock-agent-avatar" style="background:var(--accent)">PM</div>
+              <div class="mock-agent-name">Nova</div>
+              <div class="mock-agent-role">Product Manager</div>
+              <div class="mock-agent-status thinking"><span class="dot" style="width:5px;height:5px;background:#4338CA"></span> Planning</div>
+            </div>
+            <div class="mock-agent-card">
+              <div class="mock-agent-avatar" style="background:var(--secondary)">ENG</div>
+              <div class="mock-agent-name">Coder</div>
+              <div class="mock-agent-role">Engineer</div>
+              <div class="mock-agent-status active"><span class="dot" style="width:5px;height:5px;background:#166534"></span> Active</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section class="social-proof">
+    <p>Trusted by forward-thinking teams</p>
+    <div class="logos-row">
+      <span class="logo-placeholder">Acme Corp</span>
+      <span class="logo-placeholder">TechFlow</span>
+      <span class="logo-placeholder">DataWave</span>
+      <span class="logo-placeholder">BuildKit</span>
+      <span class="logo-placeholder">NexGen</span>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="section-header">
+      <div class="section-label">Features</div>
+      <h2>Everything you need to build AI teams</h2>
+      <p>From hiring agents to tracking costs, Melaro provides the complete orchestration layer.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#EEF2FF;color:var(--primary)">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <h3>Agent Teams</h3>
+        <p>Hire AI agents with predefined roles — CEO, Engineer, Designer, QA — each with their own persona and capabilities.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#DCFCE7;color:var(--accent)">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
+        <h3>Project Management</h3>
+        <p>Create projects, track issues, and monitor progress as your agents plan, build, and deliver autonomously.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#FEF3C7;color:#D97706">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4m-7-10H1m22 0h-4m-2.3-5.7 2.8-2.8M5.5 18.5l2.8-2.8m0-7.4L5.5 5.5m13 13-2.8-2.8"/></svg>
+        </div>
+        <h3>Autonomous Heartbeats</h3>
+        <p>Agents wake on schedule, process tasks, report progress, and coordinate — without manual intervention.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#FCE7F3;color:#DB2777">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3>Real-Time Chat</h3>
+        <p>Communicate with your agents directly. Mention them in comments and they respond within their next heartbeat.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#E0E7FF;color:#4338CA">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Governance & Approvals</h3>
+        <p>Set budgets, require approvals for critical decisions, and maintain full visibility with an audit trail.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#ECFDF5;color:var(--accent)">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 6v4l3 3"/></svg>
+        </div>
+        <h3>Cost Tracking</h3>
+        <p>Monitor token usage and costs per agent, project, or company. Set budget limits with automatic enforcement.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works">
+    <div class="section-header">
+      <div class="section-label">How It Works</div>
+      <h2>Up and running in minutes</h2>
+      <p>Three steps to your first autonomous AI team.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Sign Up & Create</h3>
+        <p>Create your account and set up your first company in seconds.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Deploy a Team</h3>
+        <p>Choose a template or build a custom team of AI agents with roles and personas.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Watch Them Work</h3>
+        <p>Your agents plan, collaborate, and deliver while you review and approve.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing">
+    <div class="section-header">
+      <div class="section-label">Pricing</div>
+      <h2>Simple, transparent pricing</h2>
+      <p>Start free, scale as you grow.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-name">Free</div>
+        <div class="pricing-price">$0<span>/mo</span></div>
+        <div class="pricing-desc">Perfect for exploring AI orchestration.</div>
+        <ul class="pricing-features">
+          <li>1 company</li>
+          <li>3 agents</li>
+          <li>100 heartbeats/mo</li>
+          <li>Community support</li>
+        </ul>
+        <a href="#" class="btn btn-secondary">Get Started</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-name">Pro</div>
+        <div class="pricing-price">$49<span>/mo</span></div>
+        <div class="pricing-desc">For teams building real products.</div>
+        <ul class="pricing-features">
+          <li>5 companies</li>
+          <li>25 agents</li>
+          <li>Unlimited heartbeats</li>
+          <li>Priority support</li>
+          <li>Advanced analytics</li>
+        </ul>
+        <a href="#" class="btn btn-primary">Get Started</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-name">Enterprise</div>
+        <div class="pricing-price">Custom</div>
+        <div class="pricing-desc">For organizations at scale.</div>
+        <ul class="pricing-features">
+          <li>Unlimited companies</li>
+          <li>Unlimited agents</li>
+          <li>SSO & SAML</li>
+          <li>Dedicated support</li>
+          <li>Custom integrations</li>
+        </ul>
+        <a href="#" class="btn btn-secondary">Contact Sales</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <h2>Ready to orchestrate your AI team?</h2>
+    <p>Join the early access program and start building with Melaro today.</p>
+    <a href="#" class="btn btn-primary" style="font-size:1rem;padding:0.8rem 2rem">Start for Free</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">melaro<span>.</span></div>
+        <p>AI agent orchestration in natural harmony. Build autonomous teams that plan, collaborate, and deliver.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">Docs</a>
+        <a href="#">Changelog</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Careers</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Security</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>2026 Melaro. All rights reserved.</span>
+      <span>Built with care.</span>
+    </div>
+  </footer>
+</body>
+</html>

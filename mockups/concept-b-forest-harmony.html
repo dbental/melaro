@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Melaro - Concept B: Forest Harmony</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #15803D;
+    --primary-hover: #166534;
+    --primary-light: #22C55E;
+    --secondary: #059669;
+    --accent: #D946EF;
+    --accent-soft: #F0ABFC;
+    --bg: #FAFDF7;
+    --bg-warm: #F5F0E8;
+    --fg: #1A2E1A;
+    --fg-muted: #5F7060;
+    --card: #FFFFFF;
+    --card-border: #D5E5D0;
+    --muted-bg: #EEF5EA;
+    --radius: 20px;
+    --radius-sm: 14px;
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Work Sans', sans-serif;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--fg);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(250,253,247,0.88);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--card-border);
+    padding: 0 2rem;
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px;
+  }
+  .logo {
+    font-family: var(--font-heading);
+    font-size: 1.5rem; font-weight: 800; color: var(--primary);
+    letter-spacing: -0.03em;
+  }
+  .logo-leaf {
+    display: inline-block;
+    width: 28px; height: 28px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    border-radius: 50% 8px 50% 8px;
+    margin-right: 0.4rem;
+    vertical-align: middle;
+    position: relative; top: -2px;
+  }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    text-decoration: none; color: var(--fg-muted); font-weight: 500;
+    font-size: 0.9rem; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--fg); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.65rem 1.5rem; border-radius: 999px;
+    font-weight: 600; font-size: 0.9rem; text-decoration: none;
+    transition: all 0.25s ease-out; cursor: pointer; border: none;
+    font-family: var(--font-body);
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(21,128,61,0.3);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 6px 22px rgba(21,128,61,0.4);
+    transform: translateY(-1px);
+  }
+  .btn-ghost {
+    background: transparent; color: var(--fg);
+    border: 1.5px solid var(--card-border);
+  }
+  .btn-ghost:hover { border-color: var(--primary); color: var(--primary); }
+
+  /* HERO */
+  .hero {
+    padding: 10rem 2rem 6rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, #F0F9EE 0%, var(--bg) 100%);
+  }
+  /* Organic blob backgrounds */
+  .blob {
+    position: absolute; border-radius: 50%;
+    filter: blur(80px); opacity: 0.12;
+    animation: float 20s ease-in-out infinite;
+  }
+  .blob-1 {
+    width: 500px; height: 500px; top: -100px; right: -100px;
+    background: var(--primary-light);
+  }
+  .blob-2 {
+    width: 400px; height: 400px; bottom: -50px; left: -100px;
+    background: var(--accent-soft);
+    animation-delay: -7s;
+  }
+  .blob-3 {
+    width: 300px; height: 300px; top: 50%; left: 50%;
+    background: var(--primary);
+    animation-delay: -14s;
+  }
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -20px) scale(1.05); }
+    66% { transform: translate(-20px, 15px) scale(0.95); }
+  }
+  .hero-content { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.4rem 1.2rem; border-radius: 999px;
+    background: rgba(21,128,61,0.08); color: var(--primary);
+    font-size: 0.85rem; font-weight: 600; margin-bottom: 1.5rem;
+    border: 1px solid rgba(21,128,61,0.15);
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4.2rem);
+    font-weight: 800; line-height: 1.08;
+    letter-spacing: -0.035em; margin-bottom: 1.5rem;
+    color: var(--fg);
+  }
+  .hero h1 .highlight {
+    position: relative; display: inline-block;
+  }
+  .hero h1 .highlight::after {
+    content: '';
+    position: absolute; bottom: 4px; left: -4px; right: -4px;
+    height: 14px;
+    background: rgba(34,197,94,0.2);
+    border-radius: 4px;
+    z-index: -1;
+  }
+  .hero p {
+    font-size: 1.2rem; color: var(--fg-muted);
+    max-width: 560px; margin: 0 auto 2.5rem; line-height: 1.7;
+  }
+  .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  /* PRODUCT VISUAL - Org Chart Style */
+  .hero-visual {
+    max-width: 900px; margin: 4rem auto 0;
+    position: relative; z-index: 1;
+  }
+  .org-chart {
+    display: flex; flex-direction: column; align-items: center; gap: 2rem;
+  }
+  .org-node {
+    background: var(--card);
+    border: 1.5px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 1.2rem 2rem;
+    display: flex; align-items: center; gap: 1rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    transition: all 0.25s ease-out;
+  }
+  .org-node:hover {
+    border-color: var(--primary-light);
+    box-shadow: 0 8px 30px rgba(21,128,61,0.08);
+    transform: translateY(-2px);
+  }
+  .org-avatar {
+    width: 44px; height: 44px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 700; color: #fff;
+  }
+  .org-info h4 { font-size: 0.95rem; font-weight: 700; }
+  .org-info span { font-size: 0.8rem; color: var(--fg-muted); }
+  .org-status {
+    margin-left: auto;
+    font-size: 0.7rem; font-weight: 600;
+    padding: 0.25rem 0.6rem; border-radius: 999px;
+  }
+  .org-status.active { background: #DCFCE7; color: #166534; }
+  .org-status.thinking { background: #F3E8FF; color: #7C3AED; }
+  .org-connector {
+    width: 2px; height: 24px;
+    background: linear-gradient(180deg, var(--card-border), var(--primary-light));
+  }
+  .org-row {
+    display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center;
+    position: relative;
+  }
+  .org-row::before {
+    content: '';
+    position: absolute; top: -14px; left: 25%; right: 25%;
+    height: 2px; background: var(--card-border);
+  }
+
+  /* FEATURES */
+  .features {
+    padding: 6rem 2rem;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .section-header { text-align: center; margin-bottom: 4rem; }
+  .section-label {
+    font-size: 0.8rem; font-weight: 600; color: var(--primary);
+    text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.75rem;
+    font-family: var(--font-heading);
+  }
+  .section-header h2 {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1rem;
+  }
+  .section-header p {
+    font-size: 1.1rem; color: var(--fg-muted); max-width: 550px; margin: 0 auto;
+  }
+  .features-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
+  }
+  .feature-card {
+    background: var(--card);
+    border: 1.5px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    display: flex; gap: 1.25rem;
+    transition: all 0.25s ease-out;
+  }
+  .feature-card:hover {
+    border-color: var(--primary-light);
+    box-shadow: 0 8px 30px rgba(21,128,61,0.06);
+    transform: translateY(-2px);
+  }
+  .feature-icon {
+    width: 52px; height: 52px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .feature-text h3 {
+    font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem;
+  }
+  .feature-text p {
+    font-size: 0.9rem; color: var(--fg-muted); line-height: 1.6;
+  }
+
+  /* HOW IT WORKS */
+  .how-it-works {
+    padding: 6rem 2rem;
+    background: linear-gradient(180deg, var(--muted-bg) 0%, var(--bg) 100%);
+  }
+  .steps {
+    max-width: 700px; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .step {
+    display: flex; gap: 1.5rem; align-items: flex-start;
+    padding: 2rem 0;
+    position: relative;
+  }
+  .step:not(:last-child)::after {
+    content: '';
+    position: absolute; left: 27px; top: 72px; bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--primary-light), var(--card-border));
+  }
+  .step-marker {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-heading);
+    font-size: 1.25rem; font-weight: 800; color: #fff;
+    flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba(21,128,61,0.25);
+  }
+  .step-content h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .step-content p { font-size: 0.9rem; color: var(--fg-muted); line-height: 1.6; }
+
+  /* PRICING */
+  .pricing {
+    padding: 6rem 2rem;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .pricing-card {
+    background: var(--card);
+    border: 1.5px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem;
+    display: flex; flex-direction: column;
+    transition: all 0.25s ease-out;
+  }
+  .pricing-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.06); }
+  .pricing-card.featured {
+    border-color: var(--primary);
+    background: linear-gradient(180deg, #F0FDF4 0%, #FFFFFF 40%);
+    box-shadow: 0 8px 30px rgba(21,128,61,0.1);
+    position: relative;
+  }
+  .pricing-card.featured::before {
+    content: 'Recommended';
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: #fff;
+    padding: 0.3rem 1.2rem; border-radius: 999px;
+    font-size: 0.75rem; font-weight: 700;
+    font-family: var(--font-heading);
+  }
+  .pricing-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .pricing-price {
+    font-family: var(--font-heading);
+    font-size: 2.75rem; font-weight: 800; letter-spacing: -0.03em;
+    margin-bottom: 0.25rem;
+  }
+  .pricing-price span { font-size: 1rem; font-weight: 400; color: var(--fg-muted); }
+  .pricing-desc { font-size: 0.85rem; color: var(--fg-muted); margin-bottom: 2rem; }
+  .pricing-features {
+    list-style: none; margin-bottom: 2rem; flex: 1;
+  }
+  .pricing-features li {
+    padding: 0.5rem 0; font-size: 0.88rem; color: var(--fg-muted);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .pricing-features li::before {
+    content: '';
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--muted-bg); flex-shrink: 0;
+    border: 2px solid var(--primary-light);
+  }
+  .pricing-card .btn { width: 100%; justify-content: center; }
+  .btn-outline {
+    background: transparent; color: var(--primary);
+    border: 1.5px solid var(--card-border);
+  }
+  .btn-outline:hover { border-color: var(--primary); background: var(--muted-bg); }
+
+  /* CTA */
+  .final-cta {
+    padding: 6rem 2rem;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .final-cta::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, #ECFDF5 0%, #F0FDF4 50%, #FDF4FF 100%);
+    z-index: 0;
+  }
+  .final-cta > * { position: relative; z-index: 1; }
+  .final-cta h2 {
+    font-size: clamp(2rem, 3.5vw, 2.5rem);
+    font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1rem;
+  }
+  .final-cta p {
+    font-size: 1.1rem; color: var(--fg-muted); margin-bottom: 2rem;
+    max-width: 480px; margin-left: auto; margin-right: auto;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 4rem 2rem 2rem;
+    border-top: 1px solid var(--card-border);
+    max-width: 1200px; margin: 0 auto;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .footer-brand .logo { margin-bottom: 1rem; display: flex; align-items: center; }
+  .footer-brand p { font-size: 0.85rem; color: var(--fg-muted); max-width: 280px; }
+  .footer-col h4 {
+    font-family: var(--font-heading);
+    font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .footer-col a {
+    display: block; font-size: 0.85rem; color: var(--fg-muted);
+    text-decoration: none; margin-bottom: 0.6rem;
+  }
+  .footer-col a:hover { color: var(--primary); }
+  .footer-bottom {
+    border-top: 1px solid var(--card-border);
+    padding-top: 1.5rem;
+    font-size: 0.8rem; color: var(--fg-muted);
+    display: flex; justify-content: space-between;
+  }
+
+  @media (max-width: 768px) {
+    .org-row { flex-direction: column; align-items: center; }
+    .org-row::before { display: none; }
+    .features-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links a:not(.btn) { display: none; }
+  }
+</style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <div class="logo"><span class="logo-leaf"></span>melaro</div>
+      <div class="nav-links">
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">Docs</a>
+        <a href="#" class="btn btn-ghost">Log in</a>
+        <a href="#" class="btn btn-primary">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/><path d="M8 12l3 3 5-5"/></svg>
+        Early Access Open
+      </div>
+      <h1>Build AI companies<br>in <span class="highlight">natural harmony</span></h1>
+      <p>Create autonomous agent teams that self-organize, collaborate, and ship — orchestrated with the balance of nature.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-primary">Start Building Free</a>
+        <a href="#" class="btn btn-ghost">Watch Demo</a>
+      </div>
+    </div>
+
+    <!-- ORG CHART VISUAL -->
+    <div class="hero-visual">
+      <div class="org-chart">
+        <div class="org-node">
+          <div class="org-avatar" style="background:linear-gradient(135deg,var(--primary),var(--primary-light))">CEO</div>
+          <div class="org-info">
+            <h4>Atlas</h4>
+            <span>Chief Executive Officer</span>
+          </div>
+          <div class="org-status active">Running</div>
+        </div>
+        <div class="org-connector"></div>
+        <div class="org-row">
+          <div class="org-node">
+            <div class="org-avatar" style="background:linear-gradient(135deg,#7C3AED,#A78BFA)">CTO</div>
+            <div class="org-info">
+              <h4>Sage</h4>
+              <span>Chief Technology Officer</span>
+            </div>
+            <div class="org-status active">Running</div>
+          </div>
+          <div class="org-node">
+            <div class="org-avatar" style="background:linear-gradient(135deg,#0891B2,#22D3EE)">PM</div>
+            <div class="org-info">
+              <h4>Nova</h4>
+              <span>Product Manager</span>
+            </div>
+            <div class="org-status thinking">Planning</div>
+          </div>
+          <div class="org-node">
+            <div class="org-avatar" style="background:linear-gradient(135deg,#D946EF,#F0ABFC)">DES</div>
+            <div class="org-info">
+              <h4>Pixel</h4>
+              <span>Lead Designer</span>
+            </div>
+            <div class="org-status active">Running</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="section-header">
+      <div class="section-label">Capabilities</div>
+      <h2>Grow your AI team organically</h2>
+      <p>Every tool you need to nurture autonomous agents from seedling to full bloom.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#DCFCE7;color:var(--primary)">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <div class="feature-text">
+          <h3>Agent Personas</h3>
+          <p>Choose from 140+ pre-built personas or craft custom agents with unique skills, missions, and communication styles.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#F3E8FF;color:#7C3AED">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
+        <div class="feature-text">
+          <h3>Project Orchestration</h3>
+          <p>Create projects with goals and issue tracking. Agents self-assign, plan, and collaborate to deliver outcomes.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#FEF3C7;color:#D97706">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4m-7-10H1m22 0h-4"/><circle cx="12" cy="12" r="4"/></svg>
+        </div>
+        <div class="feature-text">
+          <h3>Scheduled Heartbeats</h3>
+          <p>Agents wake on their own rhythm, process work, and coordinate — like a self-sustaining ecosystem.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#ECFDF5;color:var(--secondary)">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="feature-text">
+          <h3>Budget & Governance</h3>
+          <p>Set monthly budgets per agent, require approvals for critical actions, and track every decision in the audit log.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works">
+    <div class="section-header">
+      <div class="section-label">Getting Started</div>
+      <h2>Plant, grow, harvest</h2>
+      <p>Your first AI team in three organic steps.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-marker">1</div>
+        <div class="step-content">
+          <h3>Plant the Seed</h3>
+          <p>Create your account, name your company, and choose a team template to get started instantly.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker">2</div>
+        <div class="step-content">
+          <h3>Cultivate Your Team</h3>
+          <p>Customize agent roles, set budgets, define goals, and let your agents begin their first heartbeat cycle.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker">3</div>
+        <div class="step-content">
+          <h3>Harvest the Results</h3>
+          <p>Review deliverables, approve key decisions, and watch your AI company grow — organically and autonomously.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing">
+    <div class="section-header">
+      <div class="section-label">Pricing</div>
+      <h2>Grow at your own pace</h2>
+      <p>Start free. Scale naturally.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-name">Seed</div>
+        <div class="pricing-price">$0<span>/mo</span></div>
+        <div class="pricing-desc">Start small, dream big.</div>
+        <ul class="pricing-features">
+          <li>1 company</li>
+          <li>3 agents</li>
+          <li>100 heartbeats/mo</li>
+          <li>Community support</li>
+        </ul>
+        <a href="#" class="btn btn-outline">Start Free</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-name">Growth</div>
+        <div class="pricing-price">$49<span>/mo</span></div>
+        <div class="pricing-desc">For teams ready to bloom.</div>
+        <ul class="pricing-features">
+          <li>5 companies</li>
+          <li>25 agents</li>
+          <li>Unlimited heartbeats</li>
+          <li>Priority support</li>
+          <li>Advanced analytics</li>
+        </ul>
+        <a href="#" class="btn btn-primary">Get Started</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-name">Forest</div>
+        <div class="pricing-price">Custom</div>
+        <div class="pricing-desc">Enterprise-scale ecosystems.</div>
+        <ul class="pricing-features">
+          <li>Unlimited companies</li>
+          <li>Unlimited agents</li>
+          <li>SSO & SAML</li>
+          <li>Dedicated support</li>
+          <li>Custom integrations</li>
+        </ul>
+        <a href="#" class="btn btn-outline">Contact Sales</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <h2>Ready to grow your AI team?</h2>
+    <p>Join hundreds of builders creating autonomous AI companies with Melaro.</p>
+    <a href="#" class="btn btn-primary" style="font-size:1rem;padding:0.8rem 2.5rem">Start Building Free</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><span class="logo-leaf"></span>melaro</div>
+        <p>AI agent orchestration in natural harmony. Build teams that grow, collaborate, and deliver organically.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">Docs</a>
+        <a href="#">Changelog</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Careers</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Security</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>2026 Melaro. All rights reserved.</span>
+      <span>Grown with care.</span>
+    </div>
+  </footer>
+</body>
+</html>

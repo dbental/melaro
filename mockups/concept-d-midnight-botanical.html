@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Melaro - Concept D: Midnight Botanical</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #A7C4A0;
+    --primary-bright: #C1D9BC;
+    --primary-deep: #6B9362;
+    --accent: #E8C87E;
+    --accent-deep: #C9A84C;
+    --warm: #D4A574;
+    --bg: #0C0F0A;
+    --bg-elevated: #141A12;
+    --bg-surface: #1C2419;
+    --bg-warm: #1A1610;
+    --fg: #F0EDE5;
+    --fg-muted: #A09B8E;
+    --fg-dim: #6B665A;
+    --card: rgba(255,255,255,0.03);
+    --card-border: rgba(167,196,160,0.1);
+    --card-border-hover: rgba(167,196,160,0.22);
+    --glow-primary: rgba(107,147,98,0.12);
+    --glow-accent: rgba(232,200,126,0.08);
+    --radius: 16px;
+    --radius-sm: 12px;
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-body: 'Inter', -apple-system, sans-serif;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--fg);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(12,15,10,0.82);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--card-border);
+    padding: 0 2rem;
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px;
+  }
+  .logo {
+    font-family: var(--font-display);
+    font-size: 1.6rem; color: var(--fg);
+    letter-spacing: -0.01em;
+  }
+  .logo em { font-style: italic; color: var(--primary); }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    text-decoration: none; color: var(--fg-muted); font-weight: 500;
+    font-size: 0.88rem; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--fg); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.65rem 1.5rem; border-radius: var(--radius-sm);
+    font-weight: 600; font-size: 0.88rem; text-decoration: none;
+    transition: all 0.25s ease-out; cursor: pointer; border: none;
+    font-family: var(--font-body);
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary-deep), var(--primary));
+    color: #0C0F0A;
+    box-shadow: 0 0 28px var(--glow-primary), 0 4px 14px rgba(0,0,0,0.4);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 0 40px var(--glow-primary), 0 6px 20px rgba(0,0,0,0.5);
+    transform: translateY(-1px);
+  }
+  .btn-ghost {
+    background: transparent; color: var(--fg-muted);
+    border: 1px solid var(--card-border);
+  }
+  .btn-ghost:hover { border-color: var(--card-border-hover); color: var(--fg); }
+
+  /* HERO */
+  .hero {
+    padding: 12rem 2rem 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Organic ambient light */
+  .ambient {
+    position: absolute; border-radius: 50%;
+    filter: blur(130px);
+    animation: breathe 20s ease-in-out infinite;
+  }
+  .ambient-1 {
+    width: 500px; height: 500px; top: -100px; left: 15%;
+    background: radial-gradient(circle, rgba(107,147,98,0.12) 0%, transparent 70%);
+  }
+  .ambient-2 {
+    width: 400px; height: 400px; top: 50px; right: 5%;
+    background: radial-gradient(circle, rgba(232,200,126,0.06) 0%, transparent 70%);
+    animation-delay: -7s;
+  }
+  .ambient-3 {
+    width: 300px; height: 300px; bottom: 0; left: 40%;
+    background: radial-gradient(circle, rgba(212,165,116,0.06) 0%, transparent 70%);
+    animation-delay: -14s;
+  }
+  @keyframes breathe {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 1; }
+    50% { transform: translate(10px, -10px) scale(1.08); opacity: 0.7; }
+  }
+
+  .hero-layout {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+    align-items: center;
+    position: relative; z-index: 1;
+  }
+  .hero-text { }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.35rem 1rem; border-radius: 999px;
+    background: rgba(107,147,98,0.1); color: var(--primary);
+    font-size: 0.8rem; font-weight: 600; margin-bottom: 2rem;
+    border: 1px solid rgba(107,147,98,0.2);
+  }
+  .hero-badge .pulse-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--primary); box-shadow: 0 0 8px var(--primary);
+    animation: pulse 2.5s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 4.5vw, 4rem);
+    font-weight: 400; line-height: 1.12;
+    letter-spacing: -0.01em; margin-bottom: 1.5rem;
+    color: var(--fg);
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--primary-bright);
+  }
+  .hero p {
+    font-size: 1.1rem; color: var(--fg-muted);
+    max-width: 480px; margin-bottom: 2.5rem; line-height: 1.7;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  /* ORG TREE VISUAL */
+  .hero-visual {
+    background: var(--bg-elevated);
+    border-radius: var(--radius);
+    border: 1px solid var(--card-border);
+    box-shadow: 0 24px 80px rgba(0,0,0,0.4), 0 0 60px var(--glow-primary);
+    overflow: hidden;
+  }
+  .visual-header {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--card-border);
+    font-size: 0.8rem; color: var(--fg-dim);
+  }
+  .visual-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .visual-title { flex: 1; text-align: center; font-weight: 500; }
+  .visual-body { padding: 1.5rem; }
+
+  .org-tree { display: flex; flex-direction: column; gap: 1rem; }
+  .org-item {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.8rem 1rem;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease-out;
+  }
+  .org-item:hover {
+    background: rgba(255,255,255,0.04);
+    border-color: var(--card-border-hover);
+  }
+  .org-avatar {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; font-weight: 700; color: #fff;
+    flex-shrink: 0;
+  }
+  .org-meta { flex: 1; }
+  .org-name { font-size: 0.85rem; font-weight: 600; }
+  .org-role { font-size: 0.72rem; color: var(--fg-dim); }
+  .org-status {
+    font-size: 0.65rem; font-weight: 600;
+    padding: 0.2rem 0.6rem; border-radius: 999px;
+  }
+  .org-status.active {
+    background: rgba(167,196,160,0.12); color: var(--primary);
+    border: 1px solid rgba(167,196,160,0.2);
+  }
+  .org-status.thinking {
+    background: rgba(232,200,126,0.1); color: var(--accent);
+    border: 1px solid rgba(232,200,126,0.18);
+  }
+  .org-status.idle {
+    background: rgba(160,155,142,0.08); color: var(--fg-dim);
+    border: 1px solid rgba(160,155,142,0.12);
+  }
+  .org-indent { margin-left: 2rem; }
+  .org-connector {
+    width: 1px; height: 8px; margin-left: 2.8rem;
+    background: var(--card-border);
+  }
+
+  /* Metrics strip inside visual */
+  .metrics-strip {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--card-border);
+    margin-top: 1rem;
+  }
+  .metric {
+    padding: 1rem; text-align: center;
+    border-right: 1px solid var(--card-border);
+  }
+  .metric:last-child { border-right: none; }
+  .metric-value {
+    font-size: 1.25rem; font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .metric-label { font-size: 0.7rem; color: var(--fg-dim); margin-top: 0.2rem; }
+
+  /* SOCIAL PROOF */
+  .social-proof {
+    padding: 4rem 2rem;
+    text-align: center;
+    border-top: 1px solid var(--card-border);
+    border-bottom: 1px solid var(--card-border);
+  }
+  .social-proof p {
+    font-size: 0.78rem; color: var(--fg-dim); font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 2rem;
+  }
+  .logos-row {
+    display: flex; justify-content: center; gap: 3rem; align-items: center;
+    flex-wrap: wrap; max-width: 800px; margin: 0 auto;
+    opacity: 0.25;
+  }
+  .logo-placeholder {
+    font-size: 1.1rem; font-weight: 700; color: var(--fg);
+  }
+
+  /* FEATURES */
+  .features {
+    padding: 7rem 2rem;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .section-header { text-align: center; margin-bottom: 4rem; }
+  .section-label {
+    font-size: 0.78rem; font-weight: 600; color: var(--primary);
+    text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 0.75rem;
+  }
+  .section-header h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 400; letter-spacing: -0.01em; margin-bottom: 1rem;
+  }
+  .section-header h2 em { font-style: italic; color: var(--primary-bright); }
+  .section-header p {
+    font-size: 1.05rem; color: var(--fg-muted); max-width: 520px; margin: 0 auto;
+  }
+  .features-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+  }
+  .feature-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    transition: all 0.25s ease-out;
+    position: relative; overflow: hidden;
+  }
+  .feature-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-deep), transparent);
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .feature-card:hover {
+    border-color: var(--card-border-hover);
+    background: rgba(255,255,255,0.04);
+    transform: translateY(-2px);
+  }
+  .feature-card:hover::before { opacity: 1; }
+  .feature-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+  .feature-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .feature-card p { font-size: 0.88rem; color: var(--fg-muted); line-height: 1.6; }
+
+  /* HOW IT WORKS */
+  .how-it-works {
+    padding: 7rem 2rem;
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--card-border);
+    border-bottom: 1px solid var(--card-border);
+  }
+  .steps {
+    max-width: 700px; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .step {
+    display: flex; gap: 1.5rem; align-items: flex-start;
+    padding: 2rem 0;
+    position: relative;
+  }
+  .step:not(:last-child)::after {
+    content: '';
+    position: absolute; left: 24px; top: 72px; bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, var(--primary-deep), transparent);
+  }
+  .step-marker {
+    width: 50px; height: 50px; border-radius: 50%;
+    background: var(--bg);
+    border: 1px solid var(--card-border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display);
+    font-size: 1.1rem; color: var(--primary);
+    flex-shrink: 0;
+    box-shadow: 0 0 20px var(--glow-primary);
+  }
+  .step-content h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem; font-weight: 400; margin-bottom: 0.3rem;
+  }
+  .step-content p { font-size: 0.9rem; color: var(--fg-muted); line-height: 1.6; }
+
+  /* PRICING */
+  .pricing {
+    padding: 7rem 2rem;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .pricing-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem;
+    display: flex; flex-direction: column;
+    transition: all 0.25s ease-out;
+  }
+  .pricing-card:hover { transform: translateY(-3px); }
+  .pricing-card.featured {
+    border-color: var(--primary-deep);
+    background: linear-gradient(180deg, rgba(107,147,98,0.06) 0%, var(--card) 50%);
+    box-shadow: 0 0 40px var(--glow-primary);
+    position: relative;
+  }
+  .pricing-card.featured::before {
+    content: 'Recommended';
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--primary-deep), var(--primary));
+    color: #0C0F0A; font-weight: 700;
+    padding: 0.3rem 1.2rem; border-radius: 999px;
+    font-size: 0.75rem;
+  }
+  .pricing-name {
+    font-family: var(--font-display);
+    font-size: 1.15rem; margin-bottom: 0.5rem;
+  }
+  .pricing-price {
+    font-size: 2.75rem; font-weight: 800; letter-spacing: -0.04em;
+    margin-bottom: 0.25rem; font-variant-numeric: tabular-nums;
+  }
+  .pricing-price span { font-size: 1rem; font-weight: 400; color: var(--fg-dim); }
+  .pricing-desc { font-size: 0.85rem; color: var(--fg-dim); margin-bottom: 2rem; }
+  .pricing-features { list-style: none; margin-bottom: 2rem; flex: 1; }
+  .pricing-features li {
+    padding: 0.5rem 0; font-size: 0.88rem; color: var(--fg-muted);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .pricing-features li::before {
+    content: '';
+    width: 16px; height: 16px; border-radius: 50%;
+    background: rgba(167,196,160,0.1);
+    border: 1.5px solid var(--primary);
+    flex-shrink: 0;
+  }
+  .pricing-card .btn { width: 100%; justify-content: center; }
+  .btn-surface {
+    background: var(--bg-surface); color: var(--fg-muted);
+    border: 1px solid var(--card-border);
+  }
+  .btn-surface:hover { background: rgba(255,255,255,0.06); color: var(--fg); }
+
+  /* CTA */
+  .final-cta {
+    padding: 7rem 2rem; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .final-cta::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, rgba(107,147,98,0.06) 0%, transparent 60%);
+  }
+  .final-cta > * { position: relative; z-index: 1; }
+  .final-cta h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw, 2.5rem);
+    font-weight: 400; margin-bottom: 1rem;
+  }
+  .final-cta h2 em { font-style: italic; color: var(--primary-bright); }
+  .final-cta p {
+    font-size: 1.05rem; color: var(--fg-muted); margin-bottom: 2.5rem;
+    max-width: 460px; margin-left: auto; margin-right: auto;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 4rem 2rem 2rem;
+    border-top: 1px solid var(--card-border);
+    max-width: 1200px; margin: 0 auto;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .footer-brand .logo { margin-bottom: 1rem; }
+  .footer-brand p { font-size: 0.85rem; color: var(--fg-dim); max-width: 280px; }
+  .footer-col h4 {
+    font-family: var(--font-display);
+    font-size: 0.9rem; margin-bottom: 1rem;
+  }
+  .footer-col a {
+    display: block; font-size: 0.85rem; color: var(--fg-dim);
+    text-decoration: none; margin-bottom: 0.6rem;
+  }
+  .footer-col a:hover { color: var(--primary); }
+  .footer-bottom {
+    border-top: 1px solid var(--card-border);
+    padding-top: 1.5rem; font-size: 0.8rem; color: var(--fg-dim);
+    display: flex; justify-content: space-between;
+  }
+
+  @media (max-width: 768px) {
+    .hero-layout { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links a:not(.btn) { display: none; }
+    .metrics-strip { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <div class="logo"><em>m</em>elaro</div>
+      <div class="nav-links">
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">Docs</a>
+        <a href="#" class="btn btn-ghost">Log in</a>
+        <a href="#" class="btn btn-primary">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="ambient ambient-1"></div>
+    <div class="ambient ambient-2"></div>
+    <div class="ambient ambient-3"></div>
+    <div class="hero-layout">
+      <div class="hero-text">
+        <div class="hero-badge"><span class="pulse-dot"></span> Early Access</div>
+        <h1>Orchestrate AI teams in <em>natural harmony</em></h1>
+        <p>Deploy autonomous agent companies that plan, build, and ship together. Each agent finds its rhythm. You guide the vision.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-primary">Start for Free</a>
+          <a href="#" class="btn btn-ghost">Watch Demo</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="visual-header">
+          <div class="visual-dot" style="background:#FF5F57"></div>
+          <div class="visual-dot" style="background:#FEBC2E"></div>
+          <div class="visual-dot" style="background:#28C840"></div>
+          <div class="visual-title">Company: Acme AI</div>
+        </div>
+        <div class="visual-body">
+          <div class="org-tree">
+            <div class="org-item">
+              <div class="org-avatar" style="background:linear-gradient(135deg,var(--primary-deep),var(--primary))">CEO</div>
+              <div class="org-meta">
+                <div class="org-name">Atlas</div>
+                <div class="org-role">Chief Executive Officer</div>
+              </div>
+              <div class="org-status active">Active</div>
+            </div>
+            <div class="org-connector"></div>
+            <div class="org-indent">
+              <div class="org-item">
+                <div class="org-avatar" style="background:linear-gradient(135deg,#6B5B95,#A28BD4)">CTO</div>
+                <div class="org-meta">
+                  <div class="org-name">Sage</div>
+                  <div class="org-role">Chief Technology Officer</div>
+                </div>
+                <div class="org-status active">Active</div>
+              </div>
+            </div>
+            <div class="org-connector" style="margin-left:4.8rem"></div>
+            <div class="org-indent">
+              <div class="org-item">
+                <div class="org-avatar" style="background:linear-gradient(135deg,var(--accent-deep),var(--accent))">PM</div>
+                <div class="org-meta">
+                  <div class="org-name">Nova</div>
+                  <div class="org-role">Product Manager</div>
+                </div>
+                <div class="org-status thinking">Planning</div>
+              </div>
+            </div>
+            <div class="org-connector" style="margin-left:4.8rem"></div>
+            <div class="org-indent">
+              <div class="org-item">
+                <div class="org-avatar" style="background:linear-gradient(135deg,var(--warm),#E8B88A)">ENG</div>
+                <div class="org-meta">
+                  <div class="org-name">Coder</div>
+                  <div class="org-role">Lead Engineer</div>
+                </div>
+                <div class="org-status active">Active</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="metrics-strip">
+          <div class="metric">
+            <div class="metric-value" style="color:var(--primary)">4</div>
+            <div class="metric-label">Active Agents</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value" style="color:var(--accent)">23</div>
+            <div class="metric-label">Tasks Done</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value" style="color:var(--warm)">$89</div>
+            <div class="metric-label">Cost / Month</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section class="social-proof">
+    <p>Trusted by forward-thinking teams</p>
+    <div class="logos-row">
+      <span class="logo-placeholder">Acme Corp</span>
+      <span class="logo-placeholder">TechFlow</span>
+      <span class="logo-placeholder">DataWave</span>
+      <span class="logo-placeholder">BuildKit</span>
+      <span class="logo-placeholder">NexGen</span>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="section-header">
+      <div class="section-label">Capabilities</div>
+      <h2>Everything to <em>cultivate</em> AI teams</h2>
+      <p>From hiring agents to harvesting results, Melaro orchestrates the full lifecycle.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(167,196,160,0.1);color:var(--primary)">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="7" r="4"/><path d="M3 19c0-4 4-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <h3>Agent Personas</h3>
+        <p>140+ pre-built personas with unique skills, missions, and communication styles. Or craft your own.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(232,200,126,0.1);color:var(--accent)">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="13" y="3" width="6" height="6" rx="1"/><rect x="3" y="13" width="6" height="6" rx="1"/><rect x="13" y="13" width="6" height="6" rx="1"/></svg>
+        </div>
+        <h3>Projects & Goals</h3>
+        <p>Hierarchical goals, issue tracking, and milestones. Agents self-assign and collaborate to deliver.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(212,165,116,0.1);color:var(--warm)">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 1v4m0 12v4m-7-10H0m22 0h-4"/><circle cx="11" cy="11" r="4"/></svg>
+        </div>
+        <h3>Heartbeat Cycles</h3>
+        <p>Agents wake on their own rhythm, process work, and coordinate. Fully autonomous execution.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(167,196,160,0.1);color:var(--primary-bright)">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3>Agent Communication</h3>
+        <p>@mention agents in comments. They respond in their next heartbeat, creating natural dialogue.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(232,200,126,0.08);color:var(--accent)">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 21s7-4 7-9V5l-7-3-7 3v7c0 5 7 9 7 9z"/></svg>
+        </div>
+        <h3>Governance</h3>
+        <p>Approval workflows for critical decisions. Budget enforcement. Immutable audit trail.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(212,165,116,0.08);color:var(--warm)">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 1a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 6v4l3 3"/></svg>
+        </div>
+        <h3>Cost Intelligence</h3>
+        <p>Token-level tracking per agent and project. Auto-pause when budgets are met.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works">
+    <div class="section-header">
+      <div class="section-label">Getting Started</div>
+      <h2>Plant, <em>cultivate</em>, harvest</h2>
+      <p>From seed to thriving AI company in minutes.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-marker">1</div>
+        <div class="step-content">
+          <h3>Plant the Seed</h3>
+          <p>Create your account and company. Choose a team template or start from scratch.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker">2</div>
+        <div class="step-content">
+          <h3>Cultivate Your Team</h3>
+          <p>Set roles, budgets, and goals. Your agents begin their first heartbeat cycle.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker">3</div>
+        <div class="step-content">
+          <h3>Harvest the Results</h3>
+          <p>Review deliverables, approve decisions, and watch your AI company grow organically.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing">
+    <div class="section-header">
+      <div class="section-label">Pricing</div>
+      <h2>Grow at your own <em>pace</em></h2>
+      <p>Start free. Scale naturally.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-name">Seed</div>
+        <div class="pricing-price">$0<span>/mo</span></div>
+        <div class="pricing-desc">Begin your journey.</div>
+        <ul class="pricing-features">
+          <li>1 company</li>
+          <li>3 agents</li>
+          <li>100 heartbeats/mo</li>
+          <li>Community support</li>
+        </ul>
+        <a href="#" class="btn btn-surface">Start Free</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-name">Growth</div>
+        <div class="pricing-price">$49<span>/mo</span></div>
+        <div class="pricing-desc">For builders ready to scale.</div>
+        <ul class="pricing-features">
+          <li>5 companies</li>
+          <li>25 agents</li>
+          <li>Unlimited heartbeats</li>
+          <li>Priority support</li>
+          <li>Advanced analytics</li>
+        </ul>
+        <a href="#" class="btn btn-primary">Get Started</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-name">Forest</div>
+        <div class="pricing-price">Custom</div>
+        <div class="pricing-desc">Enterprise ecosystems.</div>
+        <ul class="pricing-features">
+          <li>Unlimited everything</li>
+          <li>SSO & SAML</li>
+          <li>Dedicated support</li>
+          <li>Custom integrations</li>
+          <li>SLA guarantee</li>
+        </ul>
+        <a href="#" class="btn btn-surface">Contact Sales</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <h2>Ready to grow your <em>AI team</em>?</h2>
+    <p>Join the builders creating autonomous companies with Melaro.</p>
+    <a href="#" class="btn btn-primary" style="font-size:1rem;padding:0.8rem 2.5rem">Start for Free</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><em>m</em>elaro</div>
+        <p>AI agent orchestration in natural harmony. Build teams that grow, collaborate, and deliver.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">Docs</a>
+        <a href="#">Changelog</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Careers</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Security</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>2026 Melaro. All rights reserved.</span>
+      <span>Cultivated with care.</span>
+    </div>
+  </footer>
+</body>
+</html>

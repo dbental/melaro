@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh repo:*)",
+      "Bash(git init:*)",
+      "Bash(git remote:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(ls -la /c/Projects/superclip/*.md)",
+      "Bash(grep -r \"websocket\\\\|WebSocket\\\\|socket\\\\|realtime\\\\|real-time\" /c/Projects/superclip/docs/ --include=*.md)",
+      "Bash(grep -l \"billing\\\\|plans\\\\|pricing\\\\|subscription\" /c/Projects/superclip/docs/*.md /c/Projects/superclip/doc/*.md)",
+      "Bash(grep -r \"tenant\\\\|multi-tenant\" /c/Projects/superclip/docs/ --include=*.md)",
+      "Read(//c/Users/dbent/.claude/plugins/cache/ui-ux-pro-max-skill/ui-ux-pro-max/2.0.1/.claude/skills/ui-ux-pro-max/**)",
+      "Bash(python scripts/search.py \"AI SaaS orchestration platform natural harmony organic technology balanced\" --design-system -p \"Melaro\" -f markdown)",
+      "Bash(python scripts/search.py \"AI SaaS orchestration platform natural harmony organic technology\" --design-system -p \"Melaro\" -f markdown)",
+      "Bash(python scripts/search.py \"natural harmony organic calm technology\" --domain color -n 10)",
+      "Bash(python scripts/search.py \"elegant modern clean professional technology\" --domain typography -n 10)",
+      "Bash(python scripts/search.py \"SaaS AI platform landing\" --domain landing -n 8)",
+      "Bash(python scripts/search.py \"minimalism organic glassmorphism elegant\" --domain style -n 8)",
+      "Bash(npx vercel:*)",
+      "Bash(pnpm create:*)",
+      "Bash(npx create-next-app@latest . --ts --tailwind --eslint --app --src-dir --import-alias \"@/*\" --turbopack --yes)",
+      "Bash(npx create-next-app@latest temp-init --ts --tailwind --eslint --app --src-dir --import-alias \"@/*\" --turbopack --yes)",
+      "Bash(cp -r temp-init/src .)",
+      "Bash(cp temp-init/package.json .)",
+      "Bash(cp temp-init/tsconfig.json .)",
+      "Bash(cp temp-init/next.config.ts .)",
+      "Bash(cp temp-init/postcss.config.mjs .)",
+      "Bash(rm .gitignore.new)",
+      "Bash(sed -i 's/\"\"name\"\": \"\"temp-init\"\"/\"\"name\"\": \"\"melaro\"\"/' package.json)",
+      "Bash(npm install:*)",
+      "Bash(npx shadcn@latest init -d --yes)"
+    ]
+  }
+}
