@@ -48,8 +48,8 @@ export function HowItWorks() {
             <div className="w-14 h-14 rounded-full bg-background border border-card-border flex items-center justify-center font-heading text-[1.15rem] text-primary-bright mx-auto mb-6 shadow-[0_0_24px_var(--color-glow-primary)]">
               {step.number}
             </div>
-            <h3 className="text-[1.05rem] font-bold mb-2">{step.title}</h3>
-            <p className="text-[0.88rem] text-fg-muted">{step.description}</p>
+            <h3 className="text-[1.15rem] font-bold mb-2">{step.title}</h3>
+            <p className="text-[0.95rem] text-fg-muted">{step.description}</p>
           </div>
         ))}
       </div>

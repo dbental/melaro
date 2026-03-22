@@ -21,8 +21,8 @@ export function BentoCard({ icon, iconBg, title, description, wide }: BentoCardP
       >
         {icon}
       </div>
-      <h3 className="text-[1.05rem] font-bold mb-2">{title}</h3>
-      <p className="text-[0.88rem] text-fg-muted leading-relaxed">{description}</p>
+      <h3 className="text-[1.15rem] font-bold mb-2">{title}</h3>
+      <p className="text-[0.95rem] text-fg-muted leading-relaxed">{description}</p>
     </div>
   );
 }

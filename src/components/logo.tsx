@@ -7,19 +7,23 @@ interface LogoProps {
 
 export function Logo({ className, iconOnly }: LogoProps) {
   return (
-    <Link href="/" className={`flex items-center gap-1.5 ${className ?? ""}`}>
+    <Link href="/" className={`flex items-center gap-1 ${className ?? ""}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/logo.png"
         alt="Melaro"
-        width={34}
-        height={34}
-        className="w-[34px] h-[34px] -mr-0.5"
+        width={38}
+        height={38}
+        className="w-[38px] h-[38px]"
       />
       {!iconOnly && (
-        <span className="text-[1.35rem] font-semibold text-foreground tracking-[0.02em] leading-none">
-          melaro
-        </span>
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src="/wordmark.png"
+          alt="melaro"
+          height={22}
+          className="h-[22px] w-auto"
+        />
       )}
     </Link>
   );

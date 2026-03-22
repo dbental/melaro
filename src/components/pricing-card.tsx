@@ -46,7 +46,7 @@ export function PricingCard({
         {features.map((feature) => (
           <li
             key={feature}
-            className="flex items-center gap-[0.6rem] py-[0.45rem] text-[0.88rem] text-fg-muted"
+            className="flex items-center gap-[0.6rem] py-[0.45rem] text-[0.95rem] text-fg-muted"
           >
             <span className="w-4 h-4 rounded-full bg-[rgba(167,139,250,0.08)] border-[1.5px] border-primary shrink-0" />
             {feature}
@@ -56,7 +56,7 @@ export function PricingCard({
 
       <Link
         href={ctaHref}
-        className={`w-full text-center rounded-[10px] px-6 py-[0.65rem] text-[0.88rem] font-semibold transition-all ${
+        className={`w-full text-center rounded-[10px] px-6 py-[0.65rem] text-[0.95rem] font-semibold transition-all ${
           featured
             ? "bg-gradient-to-br from-primary-deep to-accent-deep text-white btn-glow"
             : "bg-bg-surface text-fg-muted border border-card-border hover:bg-[rgba(255,255,255,0.06)] hover:text-foreground"

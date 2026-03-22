@@ -20,14 +20,14 @@ export function Hero() {
         </div>
 
         {/* Heading */}
-        <h1 className="font-heading text-[clamp(3rem,6vw,4.8rem)] font-normal leading-[1.08] tracking-[-0.02em] mb-6">
+        <h1 className="font-heading text-[clamp(2.8rem,5vw,3.75rem)] font-normal leading-[1.1] tracking-[-0.02em] mb-6">
           AI teams that work in
           <br />
           <span className="shimmer-text">perfect harmony</span>
         </h1>
 
         {/* Subtitle */}
-        <p className="text-[1.15rem] text-fg-muted max-w-[520px] mx-auto mb-10 leading-relaxed">
+        <p className="text-[1.25rem] text-fg-muted max-w-[540px] mx-auto mb-10 leading-relaxed">
           Deploy autonomous agent companies that plan, build, and ship together.
           Orchestrated intelligence, naturally balanced.
         </p>
@@ -36,13 +36,13 @@ export function Hero() {
         <div className="flex gap-3 justify-center flex-wrap">
           <Link
             href="/signup"
-            className="rounded-[10px] px-[1.5rem] py-[0.65rem] text-[0.88rem] font-semibold text-white bg-gradient-to-br from-primary-deep to-accent-deep btn-glow"
+            className="rounded-[10px] px-7 py-3 text-[0.95rem] font-semibold text-white bg-gradient-to-br from-primary-deep to-accent-deep btn-glow"
           >
             Start for Free
           </Link>
           <a
             href="#how-it-works"
-            className="rounded-[10px] px-[1.5rem] py-[0.65rem] text-[0.88rem] font-semibold text-fg-muted border border-card-border hover:border-[rgba(255,255,255,0.15)] hover:text-foreground transition-all"
+            className="rounded-[10px] px-7 py-3 text-[0.95rem] font-semibold text-fg-muted border border-card-border hover:border-[rgba(255,255,255,0.15)] hover:text-foreground transition-all"
           >
             Watch Demo
           </a>

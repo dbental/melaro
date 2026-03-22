@@ -13,7 +13,7 @@ export function FinalCTA() {
           </em>
           ?
         </h2>
-        <p className="text-[1.05rem] text-fg-muted mb-10 max-w-[460px] mx-auto">
+        <p className="text-[1.15rem] text-fg-muted mb-10 max-w-[480px] mx-auto leading-relaxed">
           Join the builders creating the next generation of autonomous AI
           companies.
         </p>

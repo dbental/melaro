@@ -18,7 +18,7 @@ export function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="hidden md:block text-fg-muted font-medium text-[0.88rem] hover:text-foreground transition-colors cursor-pointer"
+              className="hidden md:block text-fg-muted font-medium text-[0.94rem] hover:text-foreground transition-colors cursor-pointer"
             >
               {link.label}
             </a>
@@ -26,14 +26,14 @@ export function Navbar() {
 
           <Link
             href="/login"
-            className="hidden sm:inline-flex items-center justify-center min-h-[44px] rounded-[10px] px-5 text-[0.85rem] font-semibold text-fg-muted border border-card-border hover:border-[rgba(255,255,255,0.15)] hover:text-foreground transition-all cursor-pointer"
+            className="hidden sm:inline-flex items-center justify-center min-h-[44px] rounded-[10px] px-5 text-[0.94rem] font-semibold text-fg-muted border border-card-border hover:border-[rgba(255,255,255,0.15)] hover:text-foreground transition-all cursor-pointer"
           >
             Log in
           </Link>
 
           <Link
             href="/signup"
-            className="inline-flex items-center justify-center min-h-[44px] rounded-[10px] px-5 text-[0.85rem] font-semibold text-white bg-gradient-to-br from-primary-deep to-accent-deep btn-glow cursor-pointer"
+            className="inline-flex items-center justify-center min-h-[44px] rounded-[10px] px-5 text-[0.94rem] font-semibold text-white bg-gradient-to-br from-primary-deep to-accent-deep btn-glow cursor-pointer"
           >
             Get Started
           </Link>
