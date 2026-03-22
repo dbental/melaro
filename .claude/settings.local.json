@@ -31,7 +31,14 @@
       "Bash(rm .gitignore.new)",
       "Bash(sed -i 's/\"\"name\"\": \"\"temp-init\"\"/\"\"name\"\": \"\"melaro\"\"/' package.json)",
       "Bash(npm install:*)",
-      "Bash(npx shadcn@latest init -d --yes)"
+      "Bash(npx shadcn@latest init -d --yes)",
+      "Bash(npx shadcn@latest add card input label separator badge -y)",
+      "Bash(npx next:*)",
+      "mcp__Claude_Preview__preview_start",
+      "Read(//c/Projects/Melaro/**)",
+      "Bash(python /tmp/fix_logo_bg.py)",
+      "Bash(npx vitest:*)",
+      "Bash(python -c \":*)"
     ]
   }
 }

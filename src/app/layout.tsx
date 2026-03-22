@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   description:
     "Deploy autonomous AI agent teams that plan, build, and ship together. Orchestrated intelligence, naturally balanced.",
   metadataBase: new URL("https://melaro.io"),
+  icons: {
+    icon: "/favicon.png",
+  },
   openGraph: {
     title: "Melaro — AI Teams in Natural Harmony",
     description:

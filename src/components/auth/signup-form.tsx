@@ -68,7 +68,7 @@ export function SignupForm() {
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full rounded-[10px] border border-card-border bg-bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-fg-dim focus:outline-none focus:ring-2 focus:ring-primary-deep focus:border-transparent transition-all"
+            className="w-full rounded-[10px] border border-card-border bg-bg-surface px-4 py-3 text-sm text-foreground placeholder:text-fg-dim focus:outline-none focus:ring-2 focus:ring-primary-deep focus:border-transparent transition-all"
             placeholder="Your name"
           />
         </div>
@@ -84,9 +84,10 @@ export function SignupForm() {
             id="signup-email"
             type="email"
             required
+            autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-[10px] border border-card-border bg-bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-fg-dim focus:outline-none focus:ring-2 focus:ring-primary-deep focus:border-transparent transition-all"
+            className="w-full rounded-[10px] border border-card-border bg-bg-surface px-4 py-3 text-sm text-foreground placeholder:text-fg-dim focus:outline-none focus:ring-2 focus:ring-primary-deep focus:border-transparent transition-all"
             placeholder="you@company.com"
           />
         </div>
@@ -102,9 +103,10 @@ export function SignupForm() {
             id="signup-password"
             type="password"
             required
+            autoComplete="new-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-[10px] border border-card-border bg-bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-fg-dim focus:outline-none focus:ring-2 focus:ring-primary-deep focus:border-transparent transition-all"
+            className="w-full rounded-[10px] border border-card-border bg-bg-surface px-4 py-3 text-sm text-foreground placeholder:text-fg-dim focus:outline-none focus:ring-2 focus:ring-primary-deep focus:border-transparent transition-all"
             placeholder="At least 8 characters"
           />
         </div>
@@ -122,7 +124,7 @@ export function SignupForm() {
             required
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            className="w-full rounded-[10px] border border-card-border bg-bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-fg-dim focus:outline-none focus:ring-2 focus:ring-primary-deep focus:border-transparent transition-all"
+            className="w-full rounded-[10px] border border-card-border bg-bg-surface px-4 py-3 text-sm text-foreground placeholder:text-fg-dim focus:outline-none focus:ring-2 focus:ring-primary-deep focus:border-transparent transition-all"
             placeholder="Repeat your password"
           />
         </div>
@@ -136,7 +138,7 @@ export function SignupForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-[10px] px-4 py-2.5 text-sm font-semibold text-white bg-gradient-to-br from-primary-deep to-accent-deep btn-glow disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full rounded-[10px] px-4 py-3 text-sm font-semibold text-white bg-gradient-to-br from-primary-deep to-accent-deep btn-glow disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? "Creating account..." : "Create account"}
         </button>
