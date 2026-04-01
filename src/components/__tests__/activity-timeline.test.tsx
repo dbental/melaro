@@ -1,54 +1,85 @@
-import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { describe, it, expect, afterEach } from "vitest";
+import { cleanup, render, screen } from "@testing-library/react";
 import { ActivityTimeline } from "@/components/dashboard/activity-timeline";
 import type { ScActivity } from "@/lib/superclip";
 
-const items: ScActivity[] = [
-  {
+function makeItem(overrides: Partial<ScActivity> = {}): ScActivity {
+  return {
     id: "1",
-    type: "issue.created",
+    companyId: "c1",
+    actorType: "agent",
+    actorId: "a1",
+    action: "issue.created",
+    entityType: "issue",
+    entityId: "i1",
     agentId: "a1",
-    agentName: "Emma",
-    agentEmoji: "👩‍💻",
-    description: "created issue PROJ-1",
+    runId: null,
+    details: null,
     createdAt: new Date().toISOString(),
-  },
-  {
-    id: "2",
-    type: "issue.done",
-    agentId: "a2",
-    agentName: "Alex",
-    agentEmoji: null,
-    description: "completed the landing page task",
-    createdAt: new Date(Date.now() - 3600_000).toISOString(),
-  },
-];
+    ...overrides,
+  };
+}
 
 describe("ActivityTimeline", () => {
-  it("renders all activity items", () => {
-    render(<ActivityTimeline items={items} />);
-    expect(screen.getByText(/created issue PROJ-1/)).toBeInTheDocument();
-    expect(screen.getByText(/completed the landing page task/)).toBeInTheDocument();
+  afterEach(cleanup);
+
+  it("renders a human-readable label for known action types", () => {
+    render(<ActivityTimeline items={[makeItem({ action: "issue.created" })]} />);
+    expect(screen.getByText("Task created")).toBeInTheDocument();
   });
 
-  it("shows agent names", () => {
-    render(<ActivityTimeline items={items} />);
-    expect(screen.getByText("Emma")).toBeInTheDocument();
-    expect(screen.getByText("Alex")).toBeInTheDocument();
+  it("falls back to formatted action string for unknown action types", () => {
+    render(<ActivityTimeline items={[makeItem({ action: "custom.event" })]} />);
+    expect(screen.getByText("custom event")).toBeInTheDocument();
   });
 
-  it("shows empty state when no items", () => {
+  it("shows the empty state when no items are passed", () => {
     render(<ActivityTimeline items={[]} />);
     expect(screen.getByText("No activity yet")).toBeInTheDocument();
   });
 
-  it("shows fallback emoji when agentEmoji is null", () => {
-    render(<ActivityTimeline items={[items[1]]} />);
+  it("shows agent icon ⚡ for actorType agent", () => {
+    render(<ActivityTimeline items={[makeItem({ actorType: "agent" })]} />);
     expect(screen.getByText("⚡")).toBeInTheDocument();
   });
 
-  it("shows agent emoji when available", () => {
-    render(<ActivityTimeline items={[items[0]]} />);
-    expect(screen.getByText("👩‍💻")).toBeInTheDocument();
+  it("shows user icon 👤 for actorType user", () => {
+    render(<ActivityTimeline items={[makeItem({ actorType: "user" })]} />);
+    expect(screen.getByText("👤")).toBeInTheDocument();
+  });
+
+  it("shows system icon 🔧 for actorType system", () => {
+    render(<ActivityTimeline items={[makeItem({ actorType: "system" })]} />);
+    expect(screen.getByText("🔧")).toBeInTheDocument();
+  });
+
+  it("falls back to ⚡ for unknown actorType", () => {
+    render(<ActivityTimeline items={[makeItem({ actorType: "unknown_type" })]} />);
+    expect(screen.getByText("⚡")).toBeInTheDocument();
+  });
+
+  it("renders multiple items", () => {
+    const items = [
+      makeItem({ id: "1", action: "issue.created" }),
+      makeItem({ id: "2", action: "run.completed" }),
+    ];
+    render(<ActivityTimeline items={items} />);
+    expect(screen.getByText("Task created")).toBeInTheDocument();
+    expect(screen.getByText("Run completed")).toBeInTheDocument();
+  });
+
+  it("renders all known action labels correctly", () => {
+    const knownActions: Array<[string, string]> = [
+      ["agent.paused", "Agent paused"],
+      ["agent.resumed", "Agent resumed"],
+      ["issue.completed", "Completed a task"],
+      ["project.created", "Project created"],
+      ["run.failed", "Run failed"],
+    ];
+    for (const [action, label] of knownActions) {
+      const { unmount } = render(<ActivityTimeline items={[makeItem({ id: action, action })]} />);
+      expect(screen.getByText(label)).toBeInTheDocument();
+      unmount();
+    }
   });
 });

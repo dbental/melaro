@@ -5,15 +5,36 @@ import { Logo } from "../logo";
 describe("Logo", () => {
   afterEach(cleanup);
 
-  it("renders the logo image and wordmark", () => {
+  it("renders the MelAro wordmark text", () => {
     render(<Logo />);
-    expect(screen.getByAltText("Melaro")).toBeInTheDocument();
-    expect(screen.getByText("melaro")).toBeInTheDocument();
+    expect(screen.getByText("MelAro")).toBeInTheDocument();
   });
 
-  it("renders icon only when iconOnly is true", () => {
-    const { container } = render(<Logo iconOnly />);
-    expect(container.querySelector("img")).toBeInTheDocument();
-    expect(screen.queryByText("melaro")).not.toBeInTheDocument();
+  it("renders as a link to /", () => {
+    render(<Logo />);
+    const link = screen.getByRole("link");
+    expect(link).toHaveAttribute("href", "/");
+  });
+
+  it("renders the single-letter M when iconOnly is true", () => {
+    render(<Logo iconOnly />);
+    expect(screen.getByText("M")).toBeInTheDocument();
+  });
+
+  it("does not render the full wordmark when iconOnly is true", () => {
+    render(<Logo iconOnly />);
+    expect(screen.queryByText("MelAro")).not.toBeInTheDocument();
+  });
+
+  it("applies the className prop to the link element", () => {
+    render(<Logo className="text-white" />);
+    const link = screen.getByRole("link");
+    expect(link).toHaveClass("text-white");
+  });
+
+  it("iconOnly link also navigates to /", () => {
+    render(<Logo iconOnly />);
+    const link = screen.getByRole("link");
+    expect(link).toHaveAttribute("href", "/");
   });
 });
