@@ -51,4 +51,16 @@ describe("AgentCard", () => {
     render(<AgentCard agent={{ ...base, emoji: null }} />);
     expect(screen.getByText("🤖")).toBeInTheDocument();
   });
+
+  it("shows Offline status for offline agents", () => {
+    render(<AgentCard agent={{ ...base, status: "offline" }} />);
+    expect(screen.getByText("Offline")).toBeInTheDocument();
+  });
+
+  it("falls back to Idle config for an unrecognised status", () => {
+    // Cast through unknown to simulate an unexpected runtime value
+    const unknownStatus = "paused" as unknown as ScAgent["status"];
+    render(<AgentCard agent={{ ...base, status: unknownStatus }} />);
+    expect(screen.getByText("Idle")).toBeInTheDocument();
+  });
 });

@@ -163,3 +163,129 @@ describe("superclip.deployTemplate", () => {
     expect(result.success).toBe(true);
   });
 });
+
+describe("superclip.listApprovals", () => {
+  it("calls approvals endpoint without filter", async () => {
+    mockOk([]);
+    await superclip.listApprovals(COOKIE, "c1");
+    expect(mockFetch).toHaveBeenCalledWith(
+      expect.stringContaining("/api/companies/c1/approvals"),
+      expect.any(Object),
+    );
+  });
+
+  it("appends status query param when provided", async () => {
+    mockOk([]);
+    await superclip.listApprovals(COOKIE, "c1", "pending");
+    expect(mockFetch).toHaveBeenCalledWith(
+      expect.stringContaining("?status=pending"),
+      expect.any(Object),
+    );
+  });
+});
+
+describe("superclip.approveApproval", () => {
+  it("sends POST to approve endpoint with decision note", async () => {
+    const approval = { id: "ap1", status: "approved" };
+    mockOk(approval);
+
+    const result = await superclip.approveApproval(COOKIE, "ap1", "Looks good");
+
+    expect(mockFetch).toHaveBeenCalledWith(
+      expect.stringContaining("/api/approvals/ap1/approve"),
+      expect.objectContaining({
+        method: "POST",
+        body: JSON.stringify({ decisionNote: "Looks good" }),
+      }),
+    );
+    expect(result).toEqual(approval);
+  });
+
+  it("sends POST to approve endpoint without note", async () => {
+    mockOk({ id: "ap2", status: "approved" });
+    await superclip.approveApproval(COOKIE, "ap2");
+    expect(mockFetch).toHaveBeenCalledWith(
+      expect.stringContaining("/api/approvals/ap2/approve"),
+      expect.objectContaining({ method: "POST" }),
+    );
+  });
+});
+
+describe("superclip.rejectApproval", () => {
+  it("sends POST to reject endpoint with decision note", async () => {
+    const approval = { id: "ap3", status: "rejected" };
+    mockOk(approval);
+
+    const result = await superclip.rejectApproval(COOKIE, "ap3", "Not safe");
+
+    expect(mockFetch).toHaveBeenCalledWith(
+      expect.stringContaining("/api/approvals/ap3/reject"),
+      expect.objectContaining({
+        method: "POST",
+        body: JSON.stringify({ decisionNote: "Not safe" }),
+      }),
+    );
+    expect(result).toEqual(approval);
+  });
+
+  it("sends POST to reject endpoint without note", async () => {
+    mockOk({ id: "ap4", status: "rejected" });
+    await superclip.rejectApproval(COOKIE, "ap4");
+    expect(mockFetch).toHaveBeenCalledWith(
+      expect.stringContaining("/api/approvals/ap4/reject"),
+      expect.objectContaining({ method: "POST" }),
+    );
+  });
+});
+
+describe("superclip.listIssues", () => {
+  it("calls project-scoped issues endpoint", async () => {
+    mockOk([]);
+    await superclip.listIssues(COOKIE, "proj-1");
+    expect(mockFetch).toHaveBeenCalledWith(
+      expect.stringContaining("/api/projects/proj-1/issues"),
+      expect.any(Object),
+    );
+  });
+});
+
+describe("superclip.getProject", () => {
+  it("calls single-project endpoint", async () => {
+    mockOk({ id: "proj-1" });
+    const result = await superclip.getProject(COOKIE, "proj-1");
+    expect(mockFetch).toHaveBeenCalledWith(
+      expect.stringContaining("/api/projects/proj-1"),
+      expect.any(Object),
+    );
+    expect((result as { id: string }).id).toBe("proj-1");
+  });
+});
+
+describe("superclip.listTemplates", () => {
+  it("calls the templates endpoint", async () => {
+    mockOk([]);
+    await superclip.listTemplates(COOKIE);
+    expect(mockFetch).toHaveBeenCalledWith(
+      expect.stringContaining("/api/templates/companies"),
+      expect.any(Object),
+    );
+  });
+});
+
+describe("sc error handling", () => {
+  it("includes error status and body in the thrown message", async () => {
+    mockError(403, "Forbidden");
+    await expect(superclip.listCompanies(COOKIE)).rejects.toThrow("Superclip 403: Forbidden");
+  });
+
+  it("throws with empty message when res.text() rejects", async () => {
+    mockFetch.mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+      text: async () => {
+        throw new Error("stream error");
+      },
+    } as unknown as Response);
+    await expect(superclip.listCompanies(COOKIE)).rejects.toThrow("Superclip 500:");
+  });
+});

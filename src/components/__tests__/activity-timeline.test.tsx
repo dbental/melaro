@@ -82,4 +82,30 @@ describe("ActivityTimeline", () => {
       unmount();
     }
   });
+
+  // ── timeAgo branch coverage ────────────────────────────────────────────────
+
+  it("shows 'just now' for items created less than a minute ago", () => {
+    const createdAt = new Date(Date.now() - 30_000).toISOString(); // 30 seconds ago
+    render(<ActivityTimeline items={[makeItem({ createdAt })]} />);
+    expect(screen.getByText("just now")).toBeInTheDocument();
+  });
+
+  it("shows minutes ago for items 1–59 minutes old", () => {
+    const createdAt = new Date(Date.now() - 30 * 60_000).toISOString(); // 30 minutes ago
+    render(<ActivityTimeline items={[makeItem({ createdAt })]} />);
+    expect(screen.getByText("30m ago")).toBeInTheDocument();
+  });
+
+  it("shows hours ago for items 1–23 hours old", () => {
+    const createdAt = new Date(Date.now() - 3 * 60 * 60_000).toISOString(); // 3 hours ago
+    render(<ActivityTimeline items={[makeItem({ createdAt })]} />);
+    expect(screen.getByText("3h ago")).toBeInTheDocument();
+  });
+
+  it("shows days ago for items 24+ hours old", () => {
+    const createdAt = new Date(Date.now() - 2 * 24 * 60 * 60_000).toISOString(); // 2 days ago
+    render(<ActivityTimeline items={[makeItem({ createdAt })]} />);
+    expect(screen.getByText("2d ago")).toBeInTheDocument();
+  });
 });

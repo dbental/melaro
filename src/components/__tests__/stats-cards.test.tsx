@@ -60,4 +60,20 @@ describe("StatsCards", () => {
     render(<StatsCards data={makeDashboard({ costs: { monthSpendCents: 0, monthBudgetCents: 10000, monthUtilizationPercent: 67.8 } })} />);
     expect(screen.getByText("68%")).toBeInTheDocument();
   });
+
+  it("applies danger colour classes when budget utilisation exceeds 80%", () => {
+    const { container } = render(
+      <StatsCards data={makeDashboard({ costs: { monthSpendCents: 9000, monthBudgetCents: 10000, monthUtilizationPercent: 90 } })} />,
+    );
+    expect(screen.getByText("90%")).toBeInTheDocument();
+    expect(container.querySelector(".bg-danger-bg")).toBeInTheDocument();
+  });
+
+  it("applies success colour classes when budget utilisation is at or below 80%", () => {
+    const { container } = render(
+      <StatsCards data={makeDashboard({ costs: { monthSpendCents: 8000, monthBudgetCents: 10000, monthUtilizationPercent: 80 } })} />,
+    );
+    expect(screen.getByText("80%")).toBeInTheDocument();
+    expect(container.querySelector(".bg-success-bg")).toBeInTheDocument();
+  });
 });
