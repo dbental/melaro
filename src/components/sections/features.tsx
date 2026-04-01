@@ -36,7 +36,7 @@ const features = [
 ];
 
 const iconColors: Record<string, string> = {
-  "Agent Teams with 140+ Personas": "#C4B5FD",
+  "Agent Teams with 140+ Personas": "var(--info)",
   "Project Tracking": "#F0ABFC",
   "Heartbeat Engine": "#FCD34D",
   "Governance, Budgets & Audit Trail": "#818CF8",
@@ -49,7 +49,7 @@ export function Features() {
         label="Features"
         title={
           <>
-            The complete <em className="text-primary-bright not-italic font-heading italic">orchestration</em> platform
+            The complete <em className="text-primary not-italic font-heading italic">orchestration</em> platform
           </>
         }
         description="Everything you need to deploy, manage, and scale autonomous AI teams."

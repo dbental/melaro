@@ -5,7 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 /* =========================================
-   Obsidian Aurora — Melaro Design System
+   MelAro Design System
+   Brand: Coral (light) / Teal (dark)
    ========================================= */
 
 @theme inline {
@@ -14,6 +15,7 @@
   --font-sans: var(--font-body);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-display);
+  --font-wordmark: var(--font-wordmark);
 
   /* shadcn mappings */
   --color-card: var(--card);
@@ -33,22 +35,35 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  /* Custom Melaro tokens */
-  --color-primary-bright: #C4B5FD;
-  --color-primary-deep: #7C3AED;
-  --color-accent-deep: #D946EF;
-  --color-warm: #FCA5A5;
-  --color-warm-deep: #EF4444;
-  --color-amber: #FCD34D;
-  --color-bg-elevated: #111114;
-  --color-bg-surface: #18181B;
-  --color-fg-muted: #A1A1AA;
-  --color-fg-dim: #71717A;
-  --color-card-border: rgba(255, 255, 255, 0.07);
-  --color-card-border-hover: rgba(167, 139, 250, 0.25);
-  --color-glow-primary: rgba(124, 58, 237, 0.15);
-  --color-glow-accent: rgba(217, 70, 239, 0.1);
+  /* ── Brand tokens ── */
+  /* Primary brand accent: coral (light) / teal (dark) */
+  --color-brand: var(--brand);
+  --color-brand-bg: var(--brand-bg);
+  --color-brand-text: var(--brand-text);
 
+  /* Semantic tokens — consistent in both modes */
+  --color-info: var(--info);
+  --color-info-bg: var(--info-bg);
+  --color-info-text: var(--info-text);
+  --color-success: var(--success);
+  --color-success-bg: var(--success-bg);
+  --color-warning: var(--warning);
+  --color-warning-bg: var(--warning-bg);
+  --color-danger: var(--danger);
+  --color-danger-bg: var(--danger-bg);
+
+  /* Surface tokens */
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+
+  /* Glow tokens — used in box-shadows */
+  --color-glow-primary: var(--glow-primary);
+  --color-glow-accent: var(--glow-accent);
+
+  /* Alias tokens for backwards compat */
+  --color-brand-text: var(--brand-text);
+
+  /* Radius scale */
   --radius-sm: calc(var(--radius) * 0.75);
   --radius-md: var(--radius);
   --radius-lg: calc(var(--radius) * 1.33);
@@ -56,27 +71,107 @@
   --radius-2xl: calc(var(--radius) * 2);
 }
 
-/* Obsidian Aurora palette — dark only */
+/* =========================================
+   Light Mode — Default (Coral Bold)
+   ========================================= */
 :root {
-  --background: #09090B;
-  --foreground: #FAFAFA;
-  --card: rgba(255, 255, 255, 0.03);
-  --card-foreground: #FAFAFA;
-  --popover: #111114;
-  --popover-foreground: #FAFAFA;
-  --primary: #A78BFA;
+  /* shadcn base */
+  --background: #FAFAFA;
+  --foreground: #111827;
+  --card: #FFFFFF;
+  --card-foreground: #111827;
+  --popover: #FFFFFF;
+  --popover-foreground: #111827;
+  --primary: #E11D48;
   --primary-foreground: #FFFFFF;
-  --secondary: #818CF8;
-  --secondary-foreground: #FFFFFF;
-  --muted: #18181B;
-  --muted-foreground: #A1A1AA;
-  --accent: #F0ABFC;
-  --accent-foreground: #FFFFFF;
-  --destructive: #EF4444;
-  --border: rgba(255, 255, 255, 0.07);
-  --input: rgba(255, 255, 255, 0.1);
-  --ring: #7C3AED;
+  --secondary: #F3F4F6;
+  --secondary-foreground: #111827;
+  --muted: #F9FAFB;
+  --muted-foreground: #6B7280;
+  --accent: #FFF1F2;
+  --accent-foreground: #9F1239;
+  --destructive: #DC2626;
+  --border: #E5E7EB;
+  --input: #E5E7EB;
+  --ring: #E11D48;
   --radius: 0.75rem;
+
+  /* Brand */
+  --brand: #E11D48;
+  --brand-bg: #FFF1F2;
+  --brand-text: #9F1239;
+
+  /* Info — indigo (neutral/actionable) */
+  --info: #4F46E5;
+  --info-bg: #EEF2FF;
+  --info-text: #3730A3;
+
+  /* Semantic */
+  --success: #16A34A;
+  --success-bg: #DCFCE7;
+  --warning: #D97706;
+  --warning-bg: #FEF3C7;
+  --danger: #DC2626;
+  --danger-bg: #FEE2E2;
+
+  /* Surfaces */
+  --surface: #FFFFFF;
+  --surface-raised: #F9FAFB;
+
+  /* Glows */
+  --glow-primary: rgba(225, 29, 72, 0.15);
+  --glow-accent: rgba(13, 148, 136, 0.10);
+}
+
+/* =========================================
+   Dark Mode — Midnight Teal
+   ========================================= */
+.dark {
+  /* shadcn base */
+  --background: #0F172A;
+  --foreground: #F1F5F9;
+  --card: #1E293B;
+  --card-foreground: #F1F5F9;
+  --popover: #1E293B;
+  --popover-foreground: #F1F5F9;
+  --primary: #0D9488;
+  --primary-foreground: #FFFFFF;
+  --secondary: #334155;
+  --secondary-foreground: #F1F5F9;
+  --muted: #1E293B;
+  --muted-foreground: #94A3B8;
+  --accent: rgba(13, 148, 136, 0.15);
+  --accent-foreground: #5EEAD4;
+  --destructive: #F87171;
+  --border: #334155;
+  --input: #334155;
+  --ring: #0D9488;
+
+  /* Brand */
+  --brand: #0D9488;
+  --brand-bg: rgba(13, 148, 136, 0.15);
+  --brand-text: #5EEAD4;
+
+  /* Info — indigo (neutral/actionable) */
+  --info: #818CF8;
+  --info-bg: rgba(129, 140, 248, 0.15);
+  --info-text: #A5B4FC;
+
+  /* Semantic */
+  --success: #4ADE80;
+  --success-bg: rgba(74, 222, 128, 0.12);
+  --warning: #FBB740;
+  --warning-bg: rgba(251, 183, 64, 0.12);
+  --danger: #F87171;
+  --danger-bg: rgba(248, 113, 113, 0.12);
+
+  /* Surfaces */
+  --surface: #1E293B;
+  --surface-raised: #263348;
+
+  /* Glows */
+  --glow-primary: rgba(13, 148, 136, 0.20);
+  --glow-accent: rgba(225, 29, 72, 0.12);
 }
 
 /* =========================================
@@ -97,11 +192,11 @@
 }
 
 /* =========================================
-   Complex Effects — Obsidian Aurora
+   Brand Effects — MelAro
    ========================================= */
 
-/* Aurora gradient background */
-.aurora-bg {
+/* Soft ambient background glow — marketing hero */
+.brand-bg {
   position: absolute;
   top: -200px;
   left: 50%;
@@ -109,17 +204,25 @@
   width: 1200px;
   height: 600px;
   background:
-    radial-gradient(ellipse at 30% 50%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 40%, rgba(217, 70, 239, 0.1) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 60%, rgba(129, 140, 248, 0.08) 0%, transparent 50%);
+    radial-gradient(ellipse at 30% 50%, rgba(225, 29, 72, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 40%, rgba(13, 148, 136, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 60%, rgba(13, 148, 136, 0.04) 0%, transparent 50%);
   filter: blur(60px);
-  animation: aurora-shift 20s ease-in-out infinite;
+  animation: brand-shift 20s ease-in-out infinite;
   pointer-events: none;
 }
 
-@keyframes aurora-shift {
+/* Dark mode variant */
+.dark .brand-bg {
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(13, 148, 136, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 40%, rgba(225, 29, 72, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 60%, rgba(13, 148, 136, 0.05) 0%, transparent 50%);
+}
+
+@keyframes brand-shift {
   0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; }
-  50% { transform: translateX(-48%) scale(1.05); opacity: 0.8; }
+  50% { transform: translateX(-48%) scale(1.05); opacity: 0.85; }
 }
 
 /* Subtle grid overlay */
@@ -127,106 +230,202 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
   background-size: 60px 60px;
   mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
   pointer-events: none;
 }
 
-/* Shimmer gradient text */
-.shimmer-text {
+.dark .grid-overlay {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+/* Brand gradient text — coral to teal (light) / teal to coral (dark) */
+.brand-text-gradient {
   background: linear-gradient(
     135deg,
-    #C4B5FD 0%,
-    #F0ABFC 25%,
-    #A78BFA 50%,
-    #F0ABFC 75%,
-    #C4B5FD 100%
+    #E11D48 0%,
+    #BE185D 20%,
+    #0F766E 60%,
+    #0D9488 80%,
+    #E11D48 100%
   );
-  background-size: 300% auto;
+  background-size: 250% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: shimmer 6s ease-in-out infinite;
+  animation: brand-shimmer 8s ease-in-out infinite;
 }
 
-@keyframes shimmer {
+.dark .brand-text-gradient {
+  background: linear-gradient(
+    135deg,
+    #0D9488 0%,
+    #14B8A6 20%,
+    #E11D48 60%,
+    #FB7185 80%,
+    #0D9488 100%
+  );
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes brand-shimmer {
   0%, 100% { background-position: 0% center; }
   50% { background-position: 100% center; }
 }
 
-/* Card glow on hover */
-.card-glow {
+/* Card hover — brand accent border */
+.card-hover {
   position: relative;
   overflow: hidden;
-  transition: all 0.25s ease-out;
+  transition: all 0.2s ease-out;
 }
 
-.card-glow::after {
+.card-hover::after {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, #7C3AED, #D946EF, transparent);
+  background: linear-gradient(90deg, transparent, #E11D48, transparent);
   opacity: 0;
-  transition: opacity 0.25s;
+  transition: opacity 0.2s;
 }
 
-.card-glow:hover {
-  border-color: rgba(167, 139, 250, 0.25);
-  background: rgba(255, 255, 255, 0.04);
+.dark .card-hover::after {
+  background: linear-gradient(90deg, transparent, #0D9488, transparent);
+}
+
+.card-hover:hover {
   transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(225, 29, 72, 0.08);
 }
 
-.card-glow:hover::after {
-  opacity: 0.6;
+.dark .card-hover:hover {
+  box-shadow: 0 8px 24px rgba(13, 148, 136, 0.12);
+}
+
+.card-hover:hover::after {
+  opacity: 0.7;
 }
 
 /* Primary button glow */
-.btn-glow {
+.btn-brand {
   box-shadow:
-    0 0 20px rgba(124, 58, 237, 0.15),
-    0 0 40px rgba(217, 70, 239, 0.1),
-    0 4px 12px rgba(0, 0, 0, 0.5);
-  transition: all 0.22s ease-out;
+    0 0 16px rgba(225, 29, 72, 0.2),
+    0 4px 12px rgba(225, 29, 72, 0.15);
+  transition: all 0.2s ease-out;
 }
 
-.btn-glow:hover {
+.btn-brand:hover {
   box-shadow:
-    0 0 30px rgba(124, 58, 237, 0.2),
-    0 0 60px rgba(217, 70, 239, 0.15),
-    0 6px 20px rgba(0, 0, 0, 0.6);
+    0 0 28px rgba(225, 29, 72, 0.25),
+    0 6px 20px rgba(225, 29, 72, 0.2);
   transform: translateY(-1px);
 }
 
-/* Pulse animation for status dots */
+.dark .btn-brand {
+  box-shadow:
+    0 0 16px rgba(13, 148, 136, 0.2),
+    0 4px 12px rgba(13, 148, 136, 0.15);
+}
+
+.dark .btn-brand:hover {
+  box-shadow:
+    0 0 28px rgba(13, 148, 136, 0.3),
+    0 6px 20px rgba(13, 148, 136, 0.2);
+}
+
+/* Pulse animation for live status dots */
 .pulse-dot {
   animation: pulse-dot 2s ease-in-out infinite;
 }
 
 @keyframes pulse-dot {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
 }
 
-/* CTA section aurora (subtler) */
-.aurora-bg-subtle {
+/* Subtle CTA section background */
+.brand-bg-subtle {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 40% 50%, rgba(124, 58, 237, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 60% 50%, rgba(217, 70, 239, 0.04) 0%, transparent 50%);
+    radial-gradient(ellipse at 40% 50%, rgba(225, 29, 72, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 50%, rgba(13, 148, 136, 0.03) 0%, transparent 50%);
   pointer-events: none;
 }
 
-/* Reduced motion */
+.dark .brand-bg-subtle {
+  background:
+    radial-gradient(ellipse at 40% 50%, rgba(13, 148, 136, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 50%, rgba(225, 29, 72, 0.04) 0%, transparent 50%);
+}
+
+/* =========================================
+   Hero Dashboard Mock — animations & helpers
+   ========================================= */
+
+@keyframes mock-float {
+  0%,100% { transform: translateY(0px);   }
+  50%      { transform: translateY(-10px); }
+}
+
+@keyframes slide-down-in {
+  from { opacity: 0; transform: translateY(-14px); }
+  to   { opacity: 1; transform: translateY(0);     }
+}
+
+@keyframes live-blink {
+  0%,100% { opacity: 1;    }
+  50%     { opacity: 0.35; }
+}
+
+@keyframes stat-pop {
+  0%   { transform: scale(0.88); opacity: 0; }
+  60%  { transform: scale(1.04); }
+  100% { transform: scale(1);   opacity: 1; }
+}
+
+@keyframes flip-out {
+  0%   { opacity: 1; transform: translateY(0);    }
+  100% { opacity: 0; transform: translateY(-8px); }
+}
+
+@keyframes flip-in {
+  0%   { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0);   }
+}
+
+.mock-new-item {
+  animation: slide-down-in 0.38s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+.mock-bar {
+  transition: width 1s cubic-bezier(0.22,1,0.36,1);
+}
+
+/* =========================================
+   Reduced Motion
+   ========================================= */
 @media (prefers-reduced-motion: reduce) {
-  .aurora-bg,
-  .shimmer-text,
-  .pulse-dot {
+  .brand-bg,
+  .brand-text-gradient,
+  .pulse-dot,
+  .mock-new-item,
+  .mock-bar {
     animation: none;
+    transition: none;
+  }
+  .card-hover,
+  .btn-brand {
+    transition: none;
   }
 }

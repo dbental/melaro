@@ -16,7 +16,7 @@ export function SectionHeader({ label, title, description }: SectionHeaderProps)
         {title}
       </h2>
       {description && (
-        <p className="text-[1.15rem] text-fg-muted max-w-[540px] mx-auto leading-relaxed">
+        <p className="text-[1.15rem] text-muted-foreground max-w-[540px] mx-auto leading-relaxed">
           {description}
         </p>
       )}

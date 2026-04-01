@@ -62,7 +62,7 @@ function NavLinks({
                 "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors",
                 active
                   ? "bg-primary/10 text-primary font-medium"
-                  : "text-fg-muted hover:text-foreground hover:bg-white/5",
+                  : "text-muted-foreground hover:text-foreground hover:bg-secondary",
                 collapsed && "justify-center px-2",
               )}
               title={collapsed ? label : undefined}
@@ -74,12 +74,12 @@ function NavLinks({
         })}
       </nav>
 
-      <div className="px-2 py-4 border-t border-card-border space-y-0.5">
+      <div className="px-2 py-4 border-t border-border space-y-0.5">
         <Link
           href={`/dashboard/${orgSlug}/settings`}
           onClick={onNavigate}
           className={cn(
-            "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-fg-muted hover:text-foreground hover:bg-white/5 transition-colors",
+            "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors",
             collapsed && "justify-center px-2",
           )}
           title={collapsed ? "Settings" : undefined}
@@ -119,7 +119,7 @@ export function DashboardSidebar({ orgSlug }: Props) {
       {/* ── Mobile hamburger button (visible only on sm and below) ── */}
       <button
         onClick={() => setMobileOpen(true)}
-        className="md:hidden fixed top-4 left-4 z-30 p-2 rounded-lg bg-bg-elevated border border-card-border text-fg-muted hover:text-foreground transition-colors"
+        className="md:hidden fixed top-4 left-4 z-30 p-2 rounded-lg bg-card border border-border text-muted-foreground hover:text-foreground transition-colors"
         aria-label="Open navigation"
       >
         <Menu size={18} />
@@ -136,15 +136,15 @@ export function DashboardSidebar({ orgSlug }: Props) {
       {/* ── Mobile drawer ── */}
       <div
         className={cn(
-          "md:hidden fixed top-0 left-0 z-50 h-full w-64 flex flex-col bg-bg-elevated border-r border-card-border transform transition-transform duration-200",
+          "md:hidden fixed top-0 left-0 z-50 h-full w-64 flex flex-col bg-card border-r border-border transform transition-transform duration-200",
           mobileOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
-        <div className="flex items-center justify-between px-4 py-5 border-b border-card-border">
-          <Logo />
+        <div className="flex items-center justify-between px-4 py-4 border-b border-border">
+          <Logo className="text-foreground" />
           <button
             onClick={() => setMobileOpen(false)}
-            className="p-1.5 rounded-lg text-fg-dim hover:text-fg-muted hover:bg-white/5 transition-colors"
+            className="p-1.5 rounded-lg text-muted-foreground hover:text-muted-foreground hover:bg-secondary transition-colors"
             aria-label="Close navigation"
           >
             <X size={16} />
@@ -160,21 +160,21 @@ export function DashboardSidebar({ orgSlug }: Props) {
       {/* ── Desktop sidebar (hidden on mobile) ── */}
       <aside
         className={cn(
-          "hidden md:flex flex-col h-full bg-bg-elevated border-r border-card-border transition-all duration-200",
+          "hidden md:flex flex-col h-full bg-card border-r border-border transition-all duration-200",
           collapsed ? "w-16" : "w-56",
         )}
       >
         {/* Logo */}
         <div
           className={cn(
-            "flex items-center gap-2 px-4 py-5 border-b border-card-border",
-            collapsed && "justify-center px-0",
+            "flex items-center justify-center border-b border-border",
+            collapsed ? "p-3" : "py-5 px-3",
           )}
         >
           {collapsed ? (
-            <span className="font-heading text-primary text-lg">M</span>
+            <Logo iconOnly className="text-foreground" />
           ) : (
-            <Logo />
+            <Logo className="text-foreground" />
           )}
         </div>
 
@@ -185,7 +185,7 @@ export function DashboardSidebar({ orgSlug }: Props) {
           <button
             onClick={() => setCollapsed(!collapsed)}
             className={cn(
-              "w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-fg-dim hover:text-fg-muted hover:bg-white/5 transition-colors",
+              "w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-muted-foreground hover:text-muted-foreground hover:bg-secondary transition-colors",
               collapsed && "justify-center px-2",
             )}
           >

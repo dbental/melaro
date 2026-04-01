@@ -24,14 +24,14 @@ export function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="py-28 px-8 bg-bg-elevated border-t border-b border-card-border"
+      className="py-28 px-8 bg-card border-t border-b border-border"
     >
       <SectionHeader
         label="How It Works"
         title={
           <>
             Three steps to{" "}
-            <em className="text-primary-bright not-italic font-heading italic">
+            <em className="text-primary not-italic font-heading italic">
               launch
             </em>
           </>
@@ -41,15 +41,15 @@ export function HowItWorks() {
 
       <div className="max-w-[900px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 relative">
         {/* Connecting gradient line */}
-        <div className="hidden md:block absolute top-[28px] left-[12%] right-[12%] h-px bg-gradient-to-r from-transparent via-primary-deep to-transparent opacity-40" />
+        <div className="hidden md:block absolute top-[28px] left-[12%] right-[12%] h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-40" />
 
         {steps.map((step) => (
           <div key={step.number} className="text-center relative">
-            <div className="w-14 h-14 rounded-full bg-background border border-card-border flex items-center justify-center font-heading text-[1.15rem] text-primary-bright mx-auto mb-6 shadow-[0_0_24px_var(--color-glow-primary)]">
+            <div className="w-14 h-14 rounded-full bg-background border border-border flex items-center justify-center font-heading text-[1.15rem] text-primary mx-auto mb-6 shadow-[0_0_24px_var(--color-glow-primary)]">
               {step.number}
             </div>
             <h3 className="text-[1.15rem] font-bold mb-2">{step.title}</h3>
-            <p className="text-[0.95rem] text-fg-muted">{step.description}</p>
+            <p className="text-[0.95rem] text-muted-foreground">{step.description}</p>
           </div>
         ))}
       </div>

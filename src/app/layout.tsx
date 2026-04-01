@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Serif_Display, Plus_Jakarta_Sans } from "next/font/google";
+import { DM_Serif_Display, Major_Mono_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
 const dmSerif = DM_Serif_Display({
@@ -12,6 +12,13 @@ const dmSerif = DM_Serif_Display({
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-body",
+  display: "swap",
+});
+
+const majorMono = Major_Mono_Display({
+  weight: ["400"],
+  subsets: ["latin"],
+  variable: "--font-wordmark",
   display: "swap",
 });
 
@@ -40,7 +47,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${dmSerif.variable} ${jakarta.variable} h-full antialiased`}
+      className={`${dmSerif.variable} ${jakarta.variable} ${majorMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

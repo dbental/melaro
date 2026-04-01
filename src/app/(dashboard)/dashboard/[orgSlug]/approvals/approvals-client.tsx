@@ -105,7 +105,7 @@ export function ApprovalsClient({ companyId, initialPending, initialResolved }: 
               {resolved.map((approval) => (
                 <div
                   key={approval.id}
-                  className="bg-elevated border border-white/5 rounded-lg px-4 py-3 flex items-center justify-between"
+                  className="bg-card border border-white/5 rounded-lg px-4 py-3 flex items-center justify-between"
                 >
                   <div className="flex items-center gap-3">
                     <span

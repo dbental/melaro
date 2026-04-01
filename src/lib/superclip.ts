@@ -44,7 +44,7 @@ export interface ScProject {
   companyId: string;
   name: string;
   description: string | null;
-  status: "active" | "paused" | "archived";
+  status: "active" | "backlog" | "paused" | "archived";
   color: string | null;
   issuePrefix: string | null;
   issueCounter: number;

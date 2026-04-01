@@ -74,7 +74,7 @@ export function ProposalCard({ approval, onApprove, onReject }: ProposalCardProp
     : null;
 
   return (
-    <div className="bg-elevated border border-white/5 rounded-xl p-5 flex flex-col gap-4">
+    <div className="bg-card border border-white/5 rounded-xl p-5 flex flex-col gap-4">
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">

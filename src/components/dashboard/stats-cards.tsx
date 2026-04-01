@@ -22,22 +22,22 @@ export function StatsCards({ data }: Props) {
       label: "Open Tasks",
       value: data.tasks.open.toString(),
       icon: ListTodo,
-      color: "text-accent",
-      bg: "bg-accent/10",
+      color: "text-info",
+      bg: "bg-info-bg",
     },
     {
       label: "Spent This Month",
       value: formatCents(data.costs.monthSpendCents),
       icon: DollarSign,
-      color: "text-amber",
-      bg: "bg-amber/10",
+      color: "text-muted-foreground",
+      bg: "bg-muted",
     },
     {
       label: "Budget Used",
       value: `${Math.round(data.costs.monthUtilizationPercent)}%`,
       icon: TrendingUp,
-      color: data.costs.monthUtilizationPercent > 80 ? "text-warm" : "text-emerald-400",
-      bg: data.costs.monthUtilizationPercent > 80 ? "bg-warm/10" : "bg-emerald-400/10",
+      color: data.costs.monthUtilizationPercent > 80 ? "text-danger" : "text-success",
+      bg: data.costs.monthUtilizationPercent > 80 ? "bg-danger-bg" : "bg-success-bg",
     },
     ...(data.pendingApprovals > 0
       ? [
@@ -57,13 +57,13 @@ export function StatsCards({ data }: Props) {
       {stats.map(({ label, value, icon: Icon, color, bg }) => (
         <div
           key={label}
-          className="rounded-xl border border-card-border bg-bg-elevated p-5 flex items-start gap-4"
+          className="rounded-xl border border-border bg-card p-5 flex items-start gap-4 shadow-sm"
         >
           <div className={`${bg} p-2.5 rounded-lg shrink-0`}>
             <Icon size={18} className={color} />
           </div>
           <div>
-            <p className="text-fg-dim text-xs mb-1">{label}</p>
+            <p className="text-muted-foreground text-xs mb-1">{label}</p>
             <p className="text-2xl font-semibold text-foreground">{value}</p>
           </div>
         </div>

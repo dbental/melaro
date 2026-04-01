@@ -53,7 +53,7 @@ export function Pricing() {
         title={
           <>
             Simple,{" "}
-            <em className="text-primary-bright not-italic font-heading italic">
+            <em className="text-primary not-italic font-heading italic">
               predictable
             </em>{" "}
             pricing

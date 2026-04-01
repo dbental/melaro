@@ -11,7 +11,7 @@ interface BentoCardProps {
 export function BentoCard({ icon, iconBg, title, description, wide }: BentoCardProps) {
   return (
     <div
-      className={`bg-card border border-card-border rounded-2xl p-8 card-glow ${
+      className={`bg-card border border-border rounded-2xl p-8 card-hover ${
         wide ? "col-span-1 md:col-span-2" : ""
       }`}
     >
@@ -22,7 +22,7 @@ export function BentoCard({ icon, iconBg, title, description, wide }: BentoCardP
         {icon}
       </div>
       <h3 className="text-[1.15rem] font-bold mb-2">{title}</h3>
-      <p className="text-[0.95rem] text-fg-muted leading-relaxed">{description}</p>
+      <p className="text-[0.95rem] text-muted-foreground leading-relaxed">{description}</p>
     </div>
   );
 }

@@ -44,3 +44,12 @@ next-env.d.ts
 .env*.local
 
 .vercel
+
+# Claude Code / IDE
+.claude/
+.memsearch/
+
+# Dev artifacts
+dev-server.log
+lighthouse-report.*
+mockups/
