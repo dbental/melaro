@@ -17,6 +17,7 @@ import {
   ChevronLeft,
   Plus,
   Zap,
+  X,
 } from "lucide-react";
 
 export function Hero() {
@@ -174,6 +175,9 @@ function DashboardMock() {
   const poolRef   = useRef(2);
   const cycleRef  = useRef(0);
 
+  /* ── mobile drawer ── */
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
   /* ── stats — spend locked at $160.00 ── */
   const [stats, setStats] = useState({ agents: 3, tasks: 12 });
 
@@ -248,7 +252,39 @@ function DashboardMock() {
           </div>
 
           {/* Layout */}
-          <div className="flex" style={{ minHeight: 380 }}>
+          <div className="flex relative" style={{ minHeight: 380 }}>
+
+            {/* Mobile drawer overlay */}
+            {drawerOpen && (
+              <div
+                className="sm:hidden absolute inset-0 z-20 bg-black/50 rounded-b-[17px]"
+                onClick={() => setDrawerOpen(false)}
+              />
+            )}
+
+            {/* Mobile drawer */}
+            <div
+              className={`sm:hidden absolute top-0 left-0 z-30 h-full w-[160px] flex flex-col bg-card border-r border-border rounded-bl-[17px] transition-transform duration-200 ${drawerOpen ? "translate-x-0" : "-translate-x-full"}`}
+            >
+              <div className="flex items-center justify-between px-3 py-[14px] border-b border-border">
+                <div className="inline-flex items-center justify-center px-3 py-[5px] border border-foreground/80">
+                  <span className="font-wordmark leading-none text-foreground" style={{ fontSize: 12, letterSpacing: "0.06em" }}>MelAro</span>
+                </div>
+                <button onClick={() => setDrawerOpen(false)} className="text-muted-foreground p-1">
+                  <X size={12} />
+                </button>
+              </div>
+              <nav className="flex-1 px-2 py-2 space-y-[2px]">
+                <MockNavItem Icon={LayoutDashboard} label="Dashboard" active />
+                <MockNavItem Icon={FolderKanban}    label="Projects" />
+                <MockNavItem Icon={Bot}             label="Agents" />
+                <MockNavItem Icon={ShieldCheck}     label="Approvals" />
+                <MockNavItem Icon={Activity}        label="Activity" />
+              </nav>
+              <div className="px-2 py-2 border-t border-border">
+                <MockNavItem Icon={Settings} label="Settings" />
+              </div>
+            </div>
 
             {/* Sidebar — hidden on small screens */}
             <aside className="hidden sm:flex w-[150px] lg:w-[184px] shrink-0 flex-col border-r border-border bg-card">
@@ -282,11 +318,14 @@ function DashboardMock() {
               <header className="flex items-center justify-between px-3 sm:px-5 py-[11px] border-b border-border bg-card shrink-0">
                 <div className="flex items-center gap-2">
                   {/* Hamburger visible only when sidebar is hidden (mobile) */}
-                  <div className="sm:hidden flex flex-col gap-[3px] p-1 shrink-0">
+                  <button
+                    onClick={() => setDrawerOpen(true)}
+                    className="sm:hidden flex flex-col gap-[3px] p-1 shrink-0 cursor-pointer"
+                  >
                     <span className="w-[14px] h-[1.5px] bg-muted-foreground rounded-full block" />
                     <span className="w-[14px] h-[1.5px] bg-muted-foreground rounded-full block" />
                     <span className="w-[10px] h-[1.5px] bg-muted-foreground rounded-full block" />
-                  </div>
+                  </button>
                   <div>
                     <p className="text-[0.6rem] text-muted-foreground uppercase tracking-wider mb-[1px]">Acme Corp</p>
                     <p className="text-[0.95rem] font-semibold text-foreground leading-none">Dashboard</p>
