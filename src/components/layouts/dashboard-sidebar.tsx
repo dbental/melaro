@@ -11,12 +11,12 @@ import {
   Settings,
   ChevronLeft,
   ChevronRight,
-  Menu,
   X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 import { useState, useEffect } from "react";
+import { useMobileNav } from "@/components/layouts/mobile-nav-context";
 
 interface NavItem {
   label: string;
@@ -94,13 +94,13 @@ function NavLinks({
 
 export function DashboardSidebar({ orgSlug }: Props) {
   const [collapsed, setCollapsed] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const { open: mobileOpen, closeNav } = useMobileNav();
   const pathname = usePathname();
 
   // Close mobile drawer on route change
   useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
+    closeNav();
+  }, [pathname, closeNav]);
 
   // Lock body scroll when mobile drawer is open
   useEffect(() => {
@@ -116,20 +116,11 @@ export function DashboardSidebar({ orgSlug }: Props) {
 
   return (
     <>
-      {/* ── Mobile hamburger button (visible only on sm and below) ── */}
-      <button
-        onClick={() => setMobileOpen(true)}
-        className="md:hidden fixed top-4 left-4 z-30 p-2 rounded-lg bg-card border border-border text-muted-foreground hover:text-foreground transition-colors"
-        aria-label="Open navigation"
-      >
-        <Menu size={18} />
-      </button>
-
       {/* ── Mobile drawer overlay ── */}
       {mobileOpen && (
         <div
           className="md:hidden fixed inset-0 z-40 bg-black/60"
-          onClick={() => setMobileOpen(false)}
+          onClick={closeNav}
         />
       )}
 
@@ -143,8 +134,8 @@ export function DashboardSidebar({ orgSlug }: Props) {
         <div className="flex items-center justify-between px-4 py-4 border-b border-border">
           <Logo className="text-foreground" />
           <button
-            onClick={() => setMobileOpen(false)}
-            className="p-1.5 rounded-lg text-muted-foreground hover:text-muted-foreground hover:bg-secondary transition-colors"
+            onClick={closeNav}
+            className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
             aria-label="Close navigation"
           >
             <X size={16} />
@@ -153,7 +144,7 @@ export function DashboardSidebar({ orgSlug }: Props) {
         <NavLinks
           orgSlug={orgSlug}
           collapsed={false}
-          onNavigate={() => setMobileOpen(false)}
+          onNavigate={closeNav}
         />
       </div>
 
@@ -185,7 +176,7 @@ export function DashboardSidebar({ orgSlug }: Props) {
           <button
             onClick={() => setCollapsed(!collapsed)}
             className={cn(
-              "w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-muted-foreground hover:text-muted-foreground hover:bg-secondary transition-colors",
+              "w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors",
               collapsed && "justify-center px-2",
             )}
           >

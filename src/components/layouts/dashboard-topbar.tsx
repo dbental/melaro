@@ -1,9 +1,10 @@
 "use client";
 
-import { Bell, LogOut, User } from "lucide-react";
+import { Bell, LogOut, Menu, User } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useMobileNav } from "@/components/layouts/mobile-nav-context";
 
 interface Props {
   title: string;
@@ -13,6 +14,7 @@ interface Props {
 export function DashboardTopbar({ title, orgName }: Props) {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { openNav } = useMobileNav();
 
   async function handleSignOut() {
     try {
@@ -24,10 +26,21 @@ export function DashboardTopbar({ title, orgName }: Props) {
   }
 
   return (
-    <header className="flex items-center justify-between pl-14 pr-6 md:px-6 py-4 border-b border-border bg-card">
-      <div>
-        <p className="text-xs text-muted-foreground uppercase tracking-wider mb-0.5">{orgName}</p>
-        <h1 className="text-lg font-semibold text-foreground">{title}</h1>
+    <header className="flex items-center justify-between px-4 md:px-6 py-4 border-b border-border bg-card">
+      <div className="flex items-center gap-3">
+        {/* Hamburger — only visible on mobile */}
+        <button
+          onClick={openNav}
+          className="md:hidden p-2 -ml-1 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+          aria-label="Open navigation"
+        >
+          <Menu size={18} />
+        </button>
+
+        <div>
+          <p className="text-xs text-muted-foreground uppercase tracking-wider mb-0.5">{orgName}</p>
+          <h1 className="text-lg font-semibold text-foreground">{title}</h1>
+        </div>
       </div>
 
       <div className="flex items-center gap-3">

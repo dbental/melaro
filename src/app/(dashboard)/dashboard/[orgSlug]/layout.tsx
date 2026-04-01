@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { DashboardSidebar } from "@/components/layouts/dashboard-sidebar";
 import { RealtimeProvider } from "@/components/layouts/realtime-provider";
 import { DemoBanner } from "@/components/dashboard/demo-banner";
+import { MobileNavProvider } from "@/components/layouts/mobile-nav-context";
 import { superclip } from "@/lib/superclip";
 
 interface Props {
@@ -31,13 +32,15 @@ export default async function OrgLayout({ children, params }: Props) {
   }
 
   return (
-    <div className="flex h-screen overflow-hidden bg-background">
-      <DashboardSidebar orgSlug={orgSlug} />
-      <div className="flex-1 flex flex-col min-w-0 overflow-auto">
-        {companyId && <RealtimeProvider companyId={companyId} />}
-        {isDemo && <DemoBanner />}
-        {children}
+    <MobileNavProvider>
+      <div className="flex h-screen overflow-hidden bg-background">
+        <DashboardSidebar orgSlug={orgSlug} />
+        <div className="flex-1 flex flex-col min-w-0 overflow-auto">
+          {companyId && <RealtimeProvider companyId={companyId} />}
+          {isDemo && <DemoBanner />}
+          {children}
+        </div>
       </div>
-    </div>
+    </MobileNavProvider>
   );
 }
