@@ -22,7 +22,7 @@ function hasSession(req: NextRequest): boolean {
   return cookieNames.some((name) => req.cookies.has(name));
 }
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // Allow API routes, static files, and Next.js internals to pass through
