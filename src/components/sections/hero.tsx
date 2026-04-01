@@ -240,7 +240,7 @@ function DashboardMock() {
             <span className="w-[10px] h-[10px] rounded-full bg-[#FF5F57]" />
             <span className="w-[10px] h-[10px] rounded-full bg-[#FEBC2E]" />
             <span className="w-[10px] h-[10px] rounded-full bg-[#28C840]" />
-            <div className="flex-1 flex justify-center">
+            <div className="flex-1 hidden sm:flex justify-center">
               <div className="px-4 py-[3px] rounded bg-card border border-border text-[0.62rem] text-muted-foreground">
                 app.melaro.io/dashboard/acme-corp
               </div>
@@ -248,10 +248,10 @@ function DashboardMock() {
           </div>
 
           {/* Layout */}
-          <div className="flex" style={{ height: 420 }}>
+          <div className="flex" style={{ minHeight: 380 }}>
 
-            {/* Sidebar */}
-            <aside className="w-[184px] shrink-0 flex flex-col border-r border-border bg-card">
+            {/* Sidebar — hidden on small screens */}
+            <aside className="hidden sm:flex w-[150px] lg:w-[184px] shrink-0 flex-col border-r border-border bg-card">
               <div className="flex items-center justify-center py-[18px] px-3 border-b border-border">
                 <div className="inline-flex items-center justify-center px-4 py-[7px] border border-foreground/80">
                   <span className="font-wordmark leading-none select-none text-foreground" style={{ fontSize: 15, letterSpacing: "0.06em" }}>
@@ -279,10 +279,18 @@ function DashboardMock() {
             <div className="flex-1 flex flex-col overflow-hidden">
 
               {/* Topbar */}
-              <header className="flex items-center justify-between px-5 py-[11px] border-b border-border bg-card shrink-0">
-                <div>
-                  <p className="text-[0.6rem] text-muted-foreground uppercase tracking-wider mb-[1px]">Acme Corp</p>
-                  <p className="text-[0.95rem] font-semibold text-foreground leading-none">Dashboard</p>
+              <header className="flex items-center justify-between px-3 sm:px-5 py-[11px] border-b border-border bg-card shrink-0">
+                <div className="flex items-center gap-2">
+                  {/* Hamburger visible only when sidebar is hidden (mobile) */}
+                  <div className="sm:hidden flex flex-col gap-[3px] p-1 shrink-0">
+                    <span className="w-[14px] h-[1.5px] bg-muted-foreground rounded-full block" />
+                    <span className="w-[14px] h-[1.5px] bg-muted-foreground rounded-full block" />
+                    <span className="w-[10px] h-[1.5px] bg-muted-foreground rounded-full block" />
+                  </div>
+                  <div>
+                    <p className="text-[0.6rem] text-muted-foreground uppercase tracking-wider mb-[1px]">Acme Corp</p>
+                    <p className="text-[0.95rem] font-semibold text-foreground leading-none">Dashboard</p>
+                  </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="flex items-center gap-[5px] px-[8px] py-[3px] rounded-full bg-success-bg border border-success/20">
@@ -300,7 +308,7 @@ function DashboardMock() {
               <div className="flex-1 p-4 overflow-hidden">
 
                 {/* Stat cards — spend locked at $160.00 */}
-                <div className="grid grid-cols-4 gap-3 mb-4">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-3 sm:mb-4">
                   <MockStatCard
                     Icon={Bot} label="Active Agents"
                     value={<FlipNumber value={String(stats.agents)} className="text-[0.9rem] font-bold text-foreground" />}
@@ -328,7 +336,7 @@ function DashboardMock() {
                 </div>
 
                 {/* Two-column: [projects+issues | agents+activity] */}
-                <div className="grid grid-cols-[1fr_230px] gap-4 h-[calc(100%-92px)]">
+                <div className="grid grid-cols-1 sm:grid-cols-[1fr_200px] lg:grid-cols-[1fr_230px] gap-3 sm:gap-4">
 
                   {/* Left — Projects with live cycling issues */}
                   <div className="overflow-hidden flex flex-col">
