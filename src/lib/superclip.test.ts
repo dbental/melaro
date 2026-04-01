@@ -127,17 +127,17 @@ describe("superclip.listAgents", () => {
 describe("superclip.getDashboard", () => {
   it("returns dashboard data", async () => {
     const dashboard = {
-      activeAgents: 3,
-      runningIssues: 7,
-      dailySpendCents: 420,
-      budgetUtilizationPct: 42,
-      recentActivity: [],
+      companyId: "company-1",
+      agents: { active: 3, running: 1, paused: 0, error: 0 },
+      tasks: { open: 7, inProgress: 2, blocked: 0, done: 15 },
+      costs: { monthSpendCents: 420, monthBudgetCents: 10000, monthUtilizationPercent: 42 },
+      pendingApprovals: 0,
     };
     mockOk(dashboard);
 
     const result = await superclip.getDashboard(COOKIE, "company-1");
-    expect(result.activeAgents).toBe(3);
-    expect(result.dailySpendCents).toBe(420);
+    expect(result.agents.active).toBe(3);
+    expect(result.costs.monthSpendCents).toBe(420);
   });
 });
 

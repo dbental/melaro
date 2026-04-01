@@ -36,6 +36,21 @@ export const metadata: Metadata = {
       "Deploy autonomous AI agent teams that plan, build, and ship together.",
     siteName: "Melaro",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Melaro — AI Teams in Natural Harmony",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Melaro — AI Teams in Natural Harmony",
+    description:
+      "Deploy autonomous AI agent teams that plan, build, and ship together.",
+    images: ["/og-image.png"],
   },
 };
 
